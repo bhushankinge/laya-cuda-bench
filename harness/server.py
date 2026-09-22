@@ -9,10 +9,14 @@ loop keeps accepting requests while the forward runs. Response = upstream predic
 """
 import argparse
 import asyncio
+import os
+import sys
 import time
 from concurrent.futures import ThreadPoolExecutor
 
 from aiohttp import web
+
+DEBUG = os.environ.get("LAYA_SERVER_DEBUG") == "1"  # one stderr line per batch: rows, build/forward/post ms
 
 from .parity import make_backend
 from .predict import calibrate, format_answers
@@ -27,11 +31,17 @@ class Batcher:
         self.batches_served = 0
 
     def _forward(self, reqs):
+        t0 = time.perf_counter()
         items, meta = build_rows(self.agent, reqs)
         b = to_device(collate(self.agent, items), self.agent.device)
+        t1 = time.perf_counter()
         logits, act = self.fn(b)
+        t2 = time.perf_counter()
         probs = calibrate(self.agent, logits, meta)
         answers = format_answers(probs, act, meta, len(reqs))
+        if DEBUG:
+            print(f"batch rows={len(items)} seq={b['input_ids'].shape[1]} build={1e3*(t1-t0):.1f}ms fwd={1e3*(t2-t1):.1f}ms "
+                  f"post={1e3*(time.perf_counter()-t2):.1f}ms", file=sys.stderr, flush=True)
         tokens = b["attention_mask"].sum(1).tolist()
         per_req_tokens = [0] * len(reqs)
         for m, t in zip(meta, tokens):
