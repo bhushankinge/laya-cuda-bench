@@ -1,0 +1,3114 @@
+{
+ "results": [
+  {
+   "backend": "torch-eager-fp32",
+   "argmax_agreements": 63,
+   "questions": 63,
+   "probability_max_abs_error": 0.0,
+   "action_probability_max_abs_error": 0.0,
+   "public_answers_equal_cases": 1,
+   "cases": [
+    {
+     "case": "email",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "en",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "zh",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "de",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "fr",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "es",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "hi",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "ja",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "ru",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "empty_state",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "long",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "conversation",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "mask_literals",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "many_questions",
+     "questions": 20,
+     "argmax_agreements": 20,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "structured",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "twenty_options",
+     "questions": 1,
+     "argmax_agreements": 1,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    }
+   ],
+   "stability": {
+    "calls": 100,
+    "elapsed_seconds": 3.229412501999832,
+    "allocated_growth_bytes": -4608,
+    "peak_bytes": 2517436416
+   },
+   "compile_s": null,
+   "session_build_s": null,
+   "model": "laya",
+   "verdict": "PASS"
+  },
+  {
+   "backend": "torch-eager-fp16",
+   "argmax_agreements": 63,
+   "questions": 63,
+   "probability_max_abs_error": 0.005289750860949072,
+   "action_probability_max_abs_error": 0.0,
+   "public_answers_equal_cases": 1,
+   "cases": [
+    {
+     "case": "email",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.00039719859468401175,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "en",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.00019508130860179662,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "zh",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0007307711863528965,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "de",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.00046421186930356573,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "fr",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0004445395257939855,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "es",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.00285351613023177,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "hi",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.005289750860949072,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "ja",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0014745786263306582,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "ru",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.001729129300747756,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "empty_state",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0003626692760469452,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "long",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0004984245211249183,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "conversation",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0005275549829780735,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "mask_literals",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0004144691944238943,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "many_questions",
+     "questions": 20,
+     "argmax_agreements": 20,
+     "probability_max_abs_error": 0.00039762769720289026,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "structured",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.000539441225069992,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "twenty_options",
+     "questions": 1,
+     "argmax_agreements": 1,
+     "probability_max_abs_error": 1.817363182788289e-31,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    }
+   ],
+   "stability": {
+    "calls": 100,
+    "elapsed_seconds": 1.3220701189993633,
+    "allocated_growth_bytes": -4608,
+    "peak_bytes": 2517436416
+   },
+   "compile_s": null,
+   "session_build_s": null,
+   "model": "laya",
+   "verdict": "PASS (fp16 error > 1e-3, port gated at 0.02)"
+  },
+  {
+   "backend": "torch-eager-bf16",
+   "argmax_agreements": 63,
+   "questions": 63,
+   "probability_max_abs_error": 0.008974300030397564,
+   "action_probability_max_abs_error": 0.0,
+   "public_answers_equal_cases": 16,
+   "cases": [
+    {
+     "case": "email",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0056277185912816385,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    },
+    {
+     "case": "en",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.003539326329585424,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    },
+    {
+     "case": "zh",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0035458079288737676,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    },
+    {
+     "case": "de",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.008974300030397564,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    },
+    {
+     "case": "fr",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.005696771665043121,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    },
+    {
+     "case": "es",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.006709458462569262,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    },
+    {
+     "case": "hi",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.007749408301825467,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    },
+    {
+     "case": "ja",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.005161003220864824,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    },
+    {
+     "case": "ru",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.008599410660442064,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    },
+    {
+     "case": "empty_state",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.000993020322235555,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    },
+    {
+     "case": "long",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0061392842665168035,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    },
+    {
+     "case": "conversation",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0026362735109847213,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    },
+    {
+     "case": "mask_literals",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0012083655107747449,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    },
+    {
+     "case": "many_questions",
+     "questions": 20,
+     "argmax_agreements": 20,
+     "probability_max_abs_error": 0.005708520903923153,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    },
+    {
+     "case": "structured",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0044538303602340845,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    },
+    {
+     "case": "twenty_options",
+     "questions": 1,
+     "argmax_agreements": 1,
+     "probability_max_abs_error": 7.6954018121189875e-31,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    }
+   ],
+   "stability": {
+    "calls": 100,
+    "elapsed_seconds": 1.3035957239999334,
+    "allocated_growth_bytes": -4608,
+    "peak_bytes": 2517436416
+   },
+   "compile_s": null,
+   "session_build_s": null,
+   "model": "laya",
+   "verdict": "PASS (fp16 error > 1e-3, port gated at 0.02)"
+  },
+  {
+   "backend": "ort-cuda-fp32",
+   "argmax_agreements": 63,
+   "questions": 63,
+   "probability_max_abs_error": 6.52533249012599e-06,
+   "action_probability_max_abs_error": 0.0,
+   "public_answers_equal_cases": 1,
+   "cases": [
+    {
+     "case": "email",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 5.620672040573815e-07,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "en",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 1.459848941176567e-07,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "zh",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 8.928572009514468e-07,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "de",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 3.804348448488426e-07,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "fr",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 3.437274496559395e-07,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "es",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 6.106874369526949e-07,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "hi",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 6.52533249012599e-06,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "ja",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 7.671757014937608e-07,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "ru",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 5.198341116230409e-06,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "empty_state",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 5.194256991192248e-07,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "long",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 1.4982315122147316e-06,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "conversation",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 2.702900627205018e-07,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "mask_literals",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 1.8810594293316996e-07,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "many_questions",
+     "questions": 20,
+     "argmax_agreements": 20,
+     "probability_max_abs_error": 3.330563828618516e-07,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "structured",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 9.252064355758094e-07,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "twenty_options",
+     "questions": 1,
+     "argmax_agreements": 1,
+     "probability_max_abs_error": 6.755042024640535e-35,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    }
+   ],
+   "stability": {
+    "calls": 100,
+    "elapsed_seconds": 3.3646744420002506,
+    "allocated_growth_bytes": -4608,
+    "peak_bytes": 2517436416
+   },
+   "compile_s": null,
+   "session_build_s": 0.3489444609995189,
+   "model": "laya",
+   "verdict": "PASS"
+  },
+  {
+   "backend": "ort-cuda-fp16",
+   "argmax_agreements": 63,
+   "questions": 63,
+   "probability_max_abs_error": 0.003162681277221524,
+   "action_probability_max_abs_error": 0.0,
+   "public_answers_equal_cases": 1,
+   "cases": [
+    {
+     "case": "email",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0013543507767111995,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "en",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0005912428337355724,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "zh",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0029103967215488025,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "de",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0006670172484434245,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "fr",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.001763802397005465,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "es",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.003162681277221524,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "hi",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0031023317964246067,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "ja",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.001581792632185386,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "ru",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0020101846383675515,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "empty_state",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0009319438060678142,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "long",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0008186136355751716,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "conversation",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0005151139707863239,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "mask_literals",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0005908971949257213,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "many_questions",
+     "questions": 20,
+     "argmax_agreements": 20,
+     "probability_max_abs_error": 0.0010846112202885783,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "structured",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.00205288709519591,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "twenty_options",
+     "questions": 1,
+     "argmax_agreements": 1,
+     "probability_max_abs_error": 1.186294236392448e-31,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    }
+   ],
+   "stability": {
+    "calls": 100,
+    "elapsed_seconds": 1.208588829999826,
+    "allocated_growth_bytes": -4608,
+    "peak_bytes": 2517436416
+   },
+   "compile_s": null,
+   "session_build_s": 0.7845571180005209,
+   "model": "laya",
+   "verdict": "PASS (fp16 error > 1e-3, port gated at 0.02)"
+  },
+  {
+   "backend": "torch-compile-max-autotune-fp16",
+   "argmax_agreements": 63,
+   "questions": 63,
+   "probability_max_abs_error": 0.009534534402486194,
+   "action_probability_max_abs_error": 0.0,
+   "public_answers_equal_cases": 1,
+   "cases": [
+    {
+     "case": "email",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0005928288227864398,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "en",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0005586155549216487,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "zh",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.00046009919208356287,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "de",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0009413050827730141,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "fr",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0004445395257939855,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "es",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0018956018062792346,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "hi",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.009534534402486194,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "ja",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0013456326372068284,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "ru",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.001407013311627181,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "empty_state",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.00024253020927444968,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "long",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.00040265299963349044,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "conversation",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.00015024687343835608,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "mask_literals",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0003055730131125145,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "many_questions",
+     "questions": 20,
+     "argmax_agreements": 20,
+     "probability_max_abs_error": 0.0005924245383525095,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "structured",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0005309944957433421,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "twenty_options",
+     "questions": 1,
+     "argmax_agreements": 1,
+     "probability_max_abs_error": 2.2320387894459248e-32,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    }
+   ],
+   "stability": {
+    "calls": 100,
+    "elapsed_seconds": 1.112731609000548,
+    "allocated_growth_bytes": -4608,
+    "peak_bytes": 2517436416
+   },
+   "compile_s": 16.43769201500072,
+   "session_build_s": null,
+   "model": "laya",
+   "verdict": "PASS (fp16 error > 1e-3, port gated at 0.02)"
+  },
+  {
+   "backend": "ort-trt-fp16-maxb64",
+   "argmax_agreements": 63,
+   "questions": 63,
+   "probability_max_abs_error": 0.011487196345503825,
+   "action_probability_max_abs_error": 0.0,
+   "public_answers_equal_cases": 1,
+   "cases": [
+    {
+     "case": "email",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0020173490641027247,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "en",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0004032885250024876,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "zh",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.005447403748777835,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "de",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0026045116607137375,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "fr",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.001380251900971352,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "es",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0018886199676572124,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "hi",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.011487196345503825,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "ja",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.004226162118165289,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "ru",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.010525266023349245,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "empty_state",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0015151969274546095,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "long",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0009636354897702981,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "conversation",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.004894687758220273,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "mask_literals",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0011815034687173154,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "many_questions",
+     "questions": 20,
+     "argmax_agreements": 20,
+     "probability_max_abs_error": 0.0020177781666216033,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "structured",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.004679936718368305,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "twenty_options",
+     "questions": 1,
+     "argmax_agreements": 1,
+     "probability_max_abs_error": 4.064597064922437e-31,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    }
+   ],
+   "stability": {
+    "calls": 100,
+    "elapsed_seconds": 1.0065862109995578,
+    "allocated_growth_bytes": -4608,
+    "peak_bytes": 2517436416
+   },
+   "compile_s": null,
+   "session_build_s": 3.512082807999832,
+   "model": "laya",
+   "verdict": "PASS (fp16 error > 1e-3, port gated at 0.02)"
+  },
+  {
+   "backend": "torch-eager-fp32",
+   "argmax_agreements": 63,
+   "questions": 63,
+   "probability_max_abs_error": 0.0,
+   "action_probability_max_abs_error": 0.0,
+   "public_answers_equal_cases": 0,
+   "cases": [
+    {
+     "case": "email",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "en",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "zh",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "de",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "fr",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "es",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "hi",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "ja",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "ru",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "empty_state",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "long",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "conversation",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "mask_literals",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "many_questions",
+     "questions": 20,
+     "argmax_agreements": 20,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "structured",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "twenty_options",
+     "questions": 1,
+     "argmax_agreements": 1,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    }
+   ],
+   "stability": {
+    "calls": 100,
+    "elapsed_seconds": 1.6733348230000047,
+    "allocated_growth_bytes": -4608,
+    "peak_bytes": 2517436416
+   },
+   "compile_s": null,
+   "session_build_s": null,
+   "model": "laya-multilingual",
+   "verdict": "PASS"
+  },
+  {
+   "backend": "torch-eager-fp16",
+   "argmax_agreements": 63,
+   "questions": 63,
+   "probability_max_abs_error": 0.0005394557183857618,
+   "action_probability_max_abs_error": 0.0,
+   "public_answers_equal_cases": 0,
+   "cases": [
+    {
+     "case": "email",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.00011428503428313405,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "en",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 3.2231791474046645e-05,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "zh",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.00010831494057572666,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "de",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.00014263754782744414,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "fr",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0002998210187172834,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "es",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.00011471637732596296,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "hi",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 6.901102347259269e-05,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "ja",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 3.372027119188936e-05,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "ru",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0003829072702419556,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "empty_state",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.00020820920848230173,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "long",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.00046794134747260574,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "conversation",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.00035774169919078336,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "mask_literals",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0005394557183857618,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "many_questions",
+     "questions": 20,
+     "argmax_agreements": 20,
+     "probability_max_abs_error": 0.0002247769947509859,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "structured",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.000127325798090272,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "twenty_options",
+     "questions": 1,
+     "argmax_agreements": 1,
+     "probability_max_abs_error": 6.4133286340473106e-06,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    }
+   ],
+   "stability": {
+    "calls": 100,
+    "elapsed_seconds": 0.8684326729999157,
+    "allocated_growth_bytes": -4608,
+    "peak_bytes": 2517436416
+   },
+   "compile_s": null,
+   "session_build_s": null,
+   "model": "laya-multilingual",
+   "verdict": "PASS"
+  },
+  {
+   "backend": "torch-eager-bf16",
+   "argmax_agreements": 63,
+   "questions": 63,
+   "probability_max_abs_error": 0.006209697571320616,
+   "action_probability_max_abs_error": 0.0,
+   "public_answers_equal_cases": 16,
+   "cases": [
+    {
+     "case": "email",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.00011939064835131408,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    },
+    {
+     "case": "en",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.001003711042015798,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    },
+    {
+     "case": "zh",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.000738462394773709,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    },
+    {
+     "case": "de",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0006038044199792036,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    },
+    {
+     "case": "fr",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.003618633276613936,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    },
+    {
+     "case": "es",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.006209697571320616,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    },
+    {
+     "case": "hi",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0030174733682145627,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    },
+    {
+     "case": "ja",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.004167428217042857,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    },
+    {
+     "case": "ru",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.002040529372796529,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    },
+    {
+     "case": "empty_state",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0019602327693029054,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    },
+    {
+     "case": "long",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.004420674024869953,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    },
+    {
+     "case": "conversation",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.001995823198838953,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    },
+    {
+     "case": "mask_literals",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.003720742968129964,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    },
+    {
+     "case": "many_questions",
+     "questions": 20,
+     "argmax_agreements": 20,
+     "probability_max_abs_error": 0.0008043424519305065,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    },
+    {
+     "case": "structured",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.004538470981359066,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    },
+    {
+     "case": "twenty_options",
+     "questions": 1,
+     "argmax_agreements": 1,
+     "probability_max_abs_error": 0.0005124002987996201,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    }
+   ],
+   "stability": {
+    "calls": 100,
+    "elapsed_seconds": 0.873965619000046,
+    "allocated_growth_bytes": -4608,
+    "peak_bytes": 2517436416
+   },
+   "compile_s": null,
+   "session_build_s": null,
+   "model": "laya-multilingual",
+   "verdict": "PASS (fp16 error > 1e-3, port gated at 0.02)"
+  },
+  {
+   "backend": "ort-cuda-fp32",
+   "argmax_agreements": 63,
+   "questions": 63,
+   "probability_max_abs_error": 4.058568630477266e-07,
+   "action_probability_max_abs_error": 0.0,
+   "public_answers_equal_cases": 0,
+   "cases": [
+    {
+     "case": "email",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 1.499609529886925e-07,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "en",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 1.6908385636060785e-07,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "zh",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 1.4373646417542574e-07,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "de",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 2.117787385458314e-07,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "fr",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 4.058568630477266e-07,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "es",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 1.1520447840140946e-07,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "hi",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 2.0948531287423577e-07,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "ja",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 1.658027928841399e-07,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "ru",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 2.1770165870016456e-07,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "empty_state",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 1.6386778958071835e-07,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "long",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 3.09887393051822e-07,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "conversation",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 1.3493535178099592e-07,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "mask_literals",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 3.7595414159596885e-07,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "many_questions",
+     "questions": 20,
+     "argmax_agreements": 20,
+     "probability_max_abs_error": 1.5865250828361877e-07,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "structured",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 9.538649563267665e-08,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "twenty_options",
+     "questions": 1,
+     "argmax_agreements": 1,
+     "probability_max_abs_error": 5.501237798632985e-08,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    }
+   ],
+   "stability": {
+    "calls": 100,
+    "elapsed_seconds": 1.951620314000138,
+    "allocated_growth_bytes": -4608,
+    "peak_bytes": 2517436416
+   },
+   "compile_s": null,
+   "session_build_s": 1.0489986649999992,
+   "model": "laya-multilingual",
+   "verdict": "PASS"
+  },
+  {
+   "backend": "ort-cuda-fp16",
+   "argmax_agreements": 63,
+   "questions": 63,
+   "probability_max_abs_error": 0.0010060153096147495,
+   "action_probability_max_abs_error": 0.0,
+   "public_answers_equal_cases": 0,
+   "cases": [
+    {
+     "case": "email",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0005159908187651885,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "en",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.00021041261414513068,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "zh",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0003965973101829334,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "de",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0001751104944505144,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "fr",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0005865023707768424,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "es",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0007099553831823036,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "hi",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0005332510240194654,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "ja",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.00047286829877035697,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "ru",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0003820799683171838,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "empty_state",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0008027775942200943,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "long",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0009943108051648775,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "conversation",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0002992250054945078,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "mask_literals",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0010060153096147495,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "many_questions",
+     "questions": 20,
+     "argmax_agreements": 20,
+     "probability_max_abs_error": 0.00043401331975123636,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "structured",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0008521661477445264,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "twenty_options",
+     "questions": 1,
+     "argmax_agreements": 1,
+     "probability_max_abs_error": 0.00011612443500164105,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    }
+   ],
+   "stability": {
+    "calls": 100,
+    "elapsed_seconds": 0.7979840049993072,
+    "allocated_growth_bytes": -4608,
+    "peak_bytes": 2517436416
+   },
+   "compile_s": null,
+   "session_build_s": 0.37441601200043806,
+   "model": "laya-multilingual",
+   "verdict": "PASS (fp16 error > 1e-3, port gated at 0.02)"
+  },
+  {
+   "backend": "torch-compile-max-autotune-fp16",
+   "argmax_agreements": 63,
+   "questions": 63,
+   "probability_max_abs_error": 0.0006706306536337081,
+   "action_probability_max_abs_error": 0.0,
+   "public_answers_equal_cases": 0,
+   "cases": [
+    {
+     "case": "email",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.00016680492336862418,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "en",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0001134022386846123,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "zh",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.00011720574299417183,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "de",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 4.506097462242398e-05,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "fr",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.000536506419184235,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "es",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.00031064017204507355,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "hi",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.00014672851378638718,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "ja",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 3.705049293212248e-05,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "ru",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0003233880103650777,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "empty_state",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0001887453118009086,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "long",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0005853708975809002,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "conversation",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0005116418992938965,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "mask_literals",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0006706306536337081,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "many_questions",
+     "questions": 20,
+     "argmax_agreements": 20,
+     "probability_max_abs_error": 0.00014045722406230698,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "structured",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 6.798073946387428e-05,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "twenty_options",
+     "questions": 1,
+     "argmax_agreements": 1,
+     "probability_max_abs_error": 2.9091814380377556e-05,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    }
+   ],
+   "stability": {
+    "calls": 100,
+    "elapsed_seconds": 0.6022209459997612,
+    "allocated_growth_bytes": -4608,
+    "peak_bytes": 2517436416
+   },
+   "compile_s": 7.423829386000762,
+   "session_build_s": null,
+   "model": "laya-multilingual",
+   "verdict": "PASS"
+  },
+  {
+   "backend": "ort-trt-fp16-maxb64",
+   "argmax_agreements": 63,
+   "questions": 63,
+   "probability_max_abs_error": 0.0023612888984230196,
+   "action_probability_max_abs_error": 0.0,
+   "public_answers_equal_cases": 0,
+   "cases": [
+    {
+     "case": "email",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.000840206149928302,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "en",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0006875913078295826,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "zh",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.001933434682534707,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "de",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0007912545334958429,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "fr",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.001243853974218792,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "es",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.00022448476094425948,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "hi",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0023612888984230196,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "ja",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0001178727350111819,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "ru",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0008035299524646877,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "empty_state",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0006099170378551788,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "long",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0012498142073933405,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "conversation",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0006040455183803639,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "mask_literals",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0012129316381268573,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "many_questions",
+     "questions": 20,
+     "argmax_agreements": 20,
+     "probability_max_abs_error": 0.0008400993023501835,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "structured",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0004576332427312958,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "twenty_options",
+     "questions": 1,
+     "argmax_agreements": 1,
+     "probability_max_abs_error": 9.514275699051833e-05,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    }
+   ],
+   "stability": {
+    "calls": 100,
+    "elapsed_seconds": 0.5950558360000286,
+    "allocated_growth_bytes": -4608,
+    "peak_bytes": 2517436416
+   },
+   "compile_s": null,
+   "session_build_s": 2.016107744999317,
+   "model": "laya-multilingual",
+   "verdict": "PASS (fp16 error > 1e-3, port gated at 0.02)"
+  },
+  {
+   "backend": "torch-eager-fp32",
+   "argmax_agreements": 63,
+   "questions": 63,
+   "probability_max_abs_error": 0.0,
+   "action_probability_max_abs_error": 0.0,
+   "public_answers_equal_cases": 1,
+   "cases": [
+    {
+     "case": "email",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "en",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "zh",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "de",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "fr",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "es",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "hi",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "ja",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "ru",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "empty_state",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "long",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "conversation",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "mask_literals",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "many_questions",
+     "questions": 20,
+     "argmax_agreements": 20,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "structured",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "twenty_options",
+     "questions": 1,
+     "argmax_agreements": 1,
+     "probability_max_abs_error": 0.0,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    }
+   ],
+   "stability": {
+    "calls": 100,
+    "elapsed_seconds": 3.8905685390000144,
+    "allocated_growth_bytes": -4608,
+    "peak_bytes": 2557217280
+   },
+   "compile_s": null,
+   "session_build_s": null,
+   "model": "laya-typed-decisions",
+   "verdict": "PASS"
+  },
+  {
+   "backend": "torch-eager-fp16",
+   "argmax_agreements": 63,
+   "questions": 63,
+   "probability_max_abs_error": 0.002329028190079241,
+   "action_probability_max_abs_error": 0.0,
+   "public_answers_equal_cases": 1,
+   "cases": [
+    {
+     "case": "email",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0005149044025670735,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "en",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0004535082675089508,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "zh",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0004173356230414704,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "de",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0002777020632557248,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "fr",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0005381368540757214,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "es",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.002329028190079241,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "hi",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0009498565395437697,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "ja",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0008520925377742961,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "ru",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.000650891912523599,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "empty_state",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0001222085709056131,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "long",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0004189068109434757,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "conversation",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 8.514525863329014e-05,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "mask_literals",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.00014590965829830438,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "many_questions",
+     "questions": 20,
+     "argmax_agreements": 20,
+     "probability_max_abs_error": 0.0005151481223157894,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "structured",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.00014080782361680644,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "twenty_options",
+     "questions": 1,
+     "argmax_agreements": 1,
+     "probability_max_abs_error": 5.546075326904633e-14,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    }
+   ],
+   "stability": {
+    "calls": 100,
+    "elapsed_seconds": 1.5839833339996403,
+    "allocated_growth_bytes": -4608,
+    "peak_bytes": 2557217280
+   },
+   "compile_s": null,
+   "session_build_s": null,
+   "model": "laya-typed-decisions",
+   "verdict": "PASS (fp16 error > 1e-3, port gated at 0.02)"
+  },
+  {
+   "backend": "torch-eager-bf16",
+   "argmax_agreements": 63,
+   "questions": 63,
+   "probability_max_abs_error": 0.007862723527937154,
+   "action_probability_max_abs_error": 0.0,
+   "public_answers_equal_cases": 16,
+   "cases": [
+    {
+     "case": "email",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0024877615623309923,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    },
+    {
+     "case": "en",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0013907516168632506,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    },
+    {
+     "case": "zh",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.004443140812847135,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    },
+    {
+     "case": "de",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.007862723527937154,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    },
+    {
+     "case": "fr",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0022394265350589304,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    },
+    {
+     "case": "es",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.003543537045862022,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    },
+    {
+     "case": "hi",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0019564931636872895,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    },
+    {
+     "case": "ja",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.003556008575547942,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    },
+    {
+     "case": "ru",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.006303952026976478,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    },
+    {
+     "case": "empty_state",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.006642057519163691,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    },
+    {
+     "case": "long",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0015757666667862713,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    },
+    {
+     "case": "conversation",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.002865518949564494,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    },
+    {
+     "case": "mask_literals",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.004768383540250094,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    },
+    {
+     "case": "many_questions",
+     "questions": 20,
+     "argmax_agreements": 20,
+     "probability_max_abs_error": 0.0024880052820797083,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    },
+    {
+     "case": "structured",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0035718734274670094,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    },
+    {
+     "case": "twenty_options",
+     "questions": 1,
+     "argmax_agreements": 1,
+     "probability_max_abs_error": 6.682570007591883e-13,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    }
+   ],
+   "stability": {
+    "calls": 100,
+    "elapsed_seconds": 1.5500462250001874,
+    "allocated_growth_bytes": -4608,
+    "peak_bytes": 2557217280
+   },
+   "compile_s": null,
+   "session_build_s": null,
+   "model": "laya-typed-decisions",
+   "verdict": "PASS (fp16 error > 1e-3, port gated at 0.02)"
+  },
+  {
+   "backend": "ort-cuda-fp32",
+   "argmax_agreements": 63,
+   "questions": 63,
+   "probability_max_abs_error": 1.6234501967193893e-06,
+   "action_probability_max_abs_error": 0.0,
+   "public_answers_equal_cases": 1,
+   "cases": [
+    {
+     "case": "email",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 4.83879535440046e-07,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "en",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 1.0520714521788932e-07,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "zh",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 1.959584746691334e-07,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "de",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 3.305186963287188e-07,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "fr",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 8.043593830997509e-07,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "es",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 6.490777784140533e-07,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "hi",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 5.172912766471249e-07,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "ja",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 1.6234501967193893e-06,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "ru",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 5.19800121612235e-07,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "empty_state",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 3.290735322569738e-07,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "long",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 2.5826099780967837e-07,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "conversation",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 2.4442385093692565e-07,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "mask_literals",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 3.0085415614333755e-07,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "many_questions",
+     "questions": 20,
+     "argmax_agreements": 20,
+     "probability_max_abs_error": 6.834967741786713e-07,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "structured",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 3.987323526910558e-07,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "twenty_options",
+     "questions": 1,
+     "argmax_agreements": 1,
+     "probability_max_abs_error": 2.2248080724603525e-15,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    }
+   ],
+   "stability": {
+    "calls": 100,
+    "elapsed_seconds": 4.471420543999557,
+    "allocated_growth_bytes": -4608,
+    "peak_bytes": 2557217280
+   },
+   "compile_s": null,
+   "session_build_s": 0.3287073949995829,
+   "model": "laya-typed-decisions",
+   "verdict": "PASS"
+  },
+  {
+   "backend": "ort-cuda-fp16",
+   "argmax_agreements": 63,
+   "questions": 63,
+   "probability_max_abs_error": 0.0030115119366529997,
+   "action_probability_max_abs_error": 0.0,
+   "public_answers_equal_cases": 1,
+   "cases": [
+    {
+     "case": "email",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0006765965154844622,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "en",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0003205582051182265,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "zh",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0013457426138592243,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "de",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0005941361271643575,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "fr",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0010730403828131396,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "es",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0015051698484441767,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "hi",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0003844819387892051,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "ja",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0030115119366529997,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "ru",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0006650886302256298,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "empty_state",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.00032639604595652294,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "long",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0021715730145245304,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "conversation",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.00044199665304073266,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "mask_literals",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.00021678971545216474,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "many_questions",
+     "questions": 20,
+     "argmax_agreements": 20,
+     "probability_max_abs_error": 0.0003662949204692456,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "structured",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0006420096576502665,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "twenty_options",
+     "questions": 1,
+     "argmax_agreements": 1,
+     "probability_max_abs_error": 1.7430501486614958e-13,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    }
+   ],
+   "stability": {
+    "calls": 100,
+    "elapsed_seconds": 1.7341484260005018,
+    "allocated_growth_bytes": -4608,
+    "peak_bytes": 2557217280
+   },
+   "compile_s": null,
+   "session_build_s": 0.4572831840005165,
+   "model": "laya-typed-decisions",
+   "verdict": "PASS (fp16 error > 1e-3, port gated at 0.02)"
+  },
+  {
+   "backend": "torch-compile-max-autotune-fp16",
+   "argmax_agreements": 63,
+   "questions": 63,
+   "probability_max_abs_error": 0.001462434018065506,
+   "action_probability_max_abs_error": 0.0,
+   "public_answers_equal_cases": 1,
+   "cases": [
+    {
+     "case": "email",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0002791991501016611,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "en",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.00010871529698347482,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "zh",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.00029344353541993495,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "de",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0008595913933635568,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "fr",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0007024445794646672,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "es",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0004110141785478305,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "hi",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.001462434018065506,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "ja",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.00047371646126448397,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "ru",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0009237953903368235,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "empty_state",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0001115427296873861,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "long",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.00027024824203719655,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "conversation",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.00014783306921034578,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "mask_literals",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.00019273135138714315,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "many_questions",
+     "questions": 20,
+     "argmax_agreements": 20,
+     "probability_max_abs_error": 0.0002798793276509448,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "structured",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 8.350952768426678e-05,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "twenty_options",
+     "questions": 1,
+     "argmax_agreements": 1,
+     "probability_max_abs_error": 1.1035616864774056e-12,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    }
+   ],
+   "stability": {
+    "calls": 100,
+    "elapsed_seconds": 1.2473877180000272,
+    "allocated_growth_bytes": -4608,
+    "peak_bytes": 2557217280
+   },
+   "compile_s": 0.016792733000329463,
+   "session_build_s": null,
+   "model": "laya-typed-decisions",
+   "verdict": "PASS (fp16 error > 1e-3, port gated at 0.02)"
+  },
+  {
+   "backend": "ort-trt-fp16-maxb64",
+   "argmax_agreements": 63,
+   "questions": 63,
+   "probability_max_abs_error": 0.004790198777388732,
+   "action_probability_max_abs_error": 0.0,
+   "public_answers_equal_cases": 1,
+   "cases": [
+    {
+     "case": "email",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0018519577179687552,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "en",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0010491425892845685,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "zh",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0010340503108839383,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "de",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0015576640509902262,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "fr",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0021997753164232914,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "es",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.003955571784718281,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "hi",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0023191753022873685,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "ja",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.004790198777388732,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "ru",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.003452001210922928,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "empty_state",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0011283544516620947,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "long",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0032017615668096244,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "conversation",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0009057483951591672,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "mask_literals",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.0015073817016641455,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "many_questions",
+     "questions": 20,
+     "argmax_agreements": 20,
+     "probability_max_abs_error": 0.001852126967312906,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "structured",
+     "questions": 3,
+     "argmax_agreements": 3,
+     "probability_max_abs_error": 0.000217367280500258,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": false
+    },
+    {
+     "case": "twenty_options",
+     "questions": 1,
+     "argmax_agreements": 1,
+     "probability_max_abs_error": 9.104050846531209e-12,
+     "action_probability_max_abs_error": 0.0,
+     "public_answers_equal": true
+    }
+   ],
+   "stability": {
+    "calls": 100,
+    "elapsed_seconds": 1.2811096890000044,
+    "allocated_growth_bytes": -4608,
+    "peak_bytes": 2557217280
+   },
+   "compile_s": null,
+   "session_build_s": 2.872195063999243,
+   "model": "laya-typed-decisions",
+   "verdict": "PASS (fp16 error > 1e-3, port gated at 0.02)"
+  }
+ ],
+ "created_at": "2026-09-22T17:07:24.731009+00:00",
+ "gpu": "NVIDIA RTX PRO 5000 Blackwell Generation Laptop GPU"
+}
