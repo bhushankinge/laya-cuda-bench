@@ -1,0 +1,17 @@
+# Install with ./setup_env.sh (two index URLs are needed: PyTorch cu130 and the ORT CUDA-13 feed).
+torch==2.14.0
+laya @ git+https://github.com/NandhaKishorM/laya@6a5819129eb220570792e417e49723d697efd76f
+transformers>=4.45
+safetensors>=0.4
+huggingface_hub>=0.20
+numpy
+onnx
+onnxscript
+nvidia-ml-py==13.610.43
+typesafe-sdk==0.7.1
+openai
+aiohttp
+pandas
+matplotlib
+jupyter
+# onnxruntime-gpu==1.30.0 and tensorrt-cu13==11.3.0.99 are installed by setup_env.sh from their own indexes.

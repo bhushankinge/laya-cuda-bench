@@ -1,0 +1,214 @@
+{
+ "sources": {
+  "laya": {
+   "github": "NandhaKishorM/laya",
+   "sha": "6a5819129eb220570792e417e49723d697efd76f"
+  },
+  "laya-mlx": {
+   "github": "mizorewww/laya-mlx",
+   "sha": "0a859518634112655cb97c745dbf04f5191aaf13"
+  },
+  "receptron-laya": {
+   "github": "receptron/laya",
+   "sha": "6478649e723122ca24bbf5fb69ed1010023c9750"
+  }
+ },
+ "checkpoints": {
+  "laya": {
+   "hf_repo": "convaiinnovations/laya",
+   "requested_revision": "c5d78730f3493e4fe16d61507ef4b78eef7318cf",
+   "files": {
+    "encoder/config.json": {
+     "bytes": 2083
+    },
+    "eval/results.json": {
+     "bytes": 2976
+    },
+    "model.safetensors": {
+     "bytes": 842609210,
+     "sha256": "891102d372688fc2a094dac56a384bc537b87c63f21f9f3dac0be2b7cbc8d86c"
+    },
+    "multilingual/encoder/config.json": {
+     "bytes": 1938
+    },
+    "multilingual/model.safetensors": {
+     "bytes": 643835514,
+     "sha256": "9d628fd971b700382ac6f65920a86f149777b2e748e0c955fb3b19695aa8f204"
+    },
+    "multilingual/rl_agent_config.json": {
+     "bytes": 472
+    },
+    "multilingual/tokenizer/tokenizer.json": {
+     "bytes": 34363188
+    },
+    "multilingual/tokenizer/tokenizer_config.json": {
+     "bytes": 524
+    },
+    "rl_agent_config.json": {
+     "bytes": 745
+    },
+    "tokenizer/tokenizer.json": {
+     "bytes": 3583228
+    },
+    "tokenizer/tokenizer_config.json": {
+     "bytes": 308
+    },
+    "typed-decisions/encoder/config.json": {
+     "bytes": 2084
+    },
+    "typed-decisions/model.safetensors": {
+     "bytes": 842609220,
+     "sha256": "4fa56de72383a9d3efa9cfa78955733c81b9fc8067a587ca4beb82c78107a24e"
+    },
+    "typed-decisions/rl_agent_config.json": {
+     "bytes": 847
+    },
+    "typed-decisions/tokenizer/tokenizer.json": {
+     "bytes": 3583228
+    },
+    "typed-decisions/tokenizer/tokenizer_config.json": {
+     "bytes": 337
+    }
+   },
+   "rl_agent_config": {
+    "encoder": "answerdotai/ModernBERT-large",
+    "head_layers": 2,
+    "max_len": 512,
+    "head_max_len": 192,
+    "max_prefixes": 6,
+    "act_costs": {
+     "escalate": 0.5
+    },
+    "cost_wrong_act": 3.0,
+    "amp_dtype": "bf16",
+    "model_name": "rl-agent",
+    "temperature": [
+     1.6369030475616455,
+     1.2514300346374512,
+     1.983399510383606
+    ],
+    "temperature_by_options": {
+     "choice:3-5": 1.7601518630981445,
+     "choice:6-10": 1.0000158548355103,
+     "score:3-5": 1.2514300346374512,
+     "noul:2": 1.983399510383606,
+     "choice:11+": 0.10058280825614929,
+     "choice:2": 1.9063563346862793
+    },
+    "training": {
+     "updates": 7313,
+     "epochs_completed": 1,
+     "hours": 1.96,
+     "world_size": 1,
+     "fine_tuned_from_checkpoint": true
+    }
+   }
+  },
+  "laya-multilingual": {
+   "hf_repo": "convaiinnovations/laya-multilingual",
+   "requested_revision": "main",
+   "files": {
+    "encoder/config.json": {
+     "bytes": 1938
+    },
+    "model.safetensors": {
+     "bytes": 643835514,
+     "sha256": "9d628fd971b700382ac6f65920a86f149777b2e748e0c955fb3b19695aa8f204"
+    },
+    "rl_agent_config.json": {
+     "bytes": 472
+    },
+    "tokenizer/tokenizer.json": {
+     "bytes": 34363188
+    },
+    "tokenizer/tokenizer_config.json": {
+     "bytes": 502
+    }
+   },
+   "rl_agent_config": {
+    "encoder": "jhu-clsp/mmBERT-base",
+    "head_layers": 2,
+    "max_len": 1024,
+    "head_max_len": 256,
+    "max_prefixes": 6,
+    "act_costs": {
+     "escalate": 0.5
+    },
+    "cost_wrong_act": 3.0,
+    "amp_dtype": "bf16",
+    "model_name": "rl-agent",
+    "temperature": [
+     1.0,
+     1.0,
+     1.0
+    ],
+    "temperature_by_options": {},
+    "training": {
+     "updates": 15987,
+     "epochs_completed": 4,
+     "hours": 4.97,
+     "world_size": 1,
+     "fine_tuned_from_checkpoint": false
+    }
+   }
+  },
+  "laya-typed-decisions": {
+   "hf_repo": "convaiinnovations/laya-typed-decisions",
+   "requested_revision": "main",
+   "files": {
+    "encoder/config.json": {
+     "bytes": 2084
+    },
+    "model.safetensors": {
+     "bytes": 842609220,
+     "sha256": "4fa56de72383a9d3efa9cfa78955733c81b9fc8067a587ca4beb82c78107a24e"
+    },
+    "rl_agent_config.json": {
+     "bytes": 847
+    },
+    "tokenizer/tokenizer.json": {
+     "bytes": 3583228
+    },
+    "tokenizer/tokenizer_config.json": {
+     "bytes": 337
+    }
+   },
+   "rl_agent_config": {
+    "encoder": "answerdotai/ModernBERT-large",
+    "head_layers": 2,
+    "max_len": 1024,
+    "head_max_len": 256,
+    "max_prefixes": 6,
+    "act_costs": {
+     "escalate": 0.5
+    },
+    "cost_wrong_act": 3.0,
+    "amp_dtype": "bf16",
+    "model_name": "laya-typed-decisions",
+    "temperature": [
+     1.0148024559020996,
+     1.0374259948730469,
+     1.0575125217437744
+    ],
+    "temperature_by_options": {
+     "choice:3-5": 1.7601518630981445,
+     "choice:6-10": 1.0000158548355103,
+     "score:3-5": 1.2514300346374512,
+     "noul:2": 1.983399510383606,
+     "choice:11+": 0.10058280825614929,
+     "choice:2": 1.9063563346862793
+    },
+    "training": {
+     "updates": 7313,
+     "epochs_completed": 1,
+     "hours": 1.96,
+     "world_size": 1,
+     "fine_tuned_from_checkpoint": true
+    },
+    "gradient_checkpointing": true,
+    "max_tokens_per_batch": 4096,
+    "fine_tuned": true
+   }
+  }
+ }
+}

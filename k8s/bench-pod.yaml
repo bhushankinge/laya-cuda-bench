@@ -1,0 +1,43 @@
+# Benchmark pod for the the GPU cluster H100 node. Plain pod (no platform/type label) -> not subject to the platform's
+# GPU Kyverno rules, scheduled by default-scheduler. Fill in the GPU resource before applying:
+#   whole GPU : nvidia.com/gpu: "1"          (needs the Qwen predictor gone; see kyverno-hold.yaml)
+#   MIG slice : nvidia.com/mig-2g.24gb: "1"  or  nvidia.com/mig-1g.12gb: "1"   (not counted by the ns quota)
+# Then:  kubectl cp harness fixtures models/<ckpt> requirements.txt setup_env.sh <pod>:/work/ ;
+#        kubectl exec <pod> -- bash -c 'cd /work && pip install -q -r requirements.txt ... '  (see scripts/h100_window.md)
+apiVersion: v1
+kind: Pod
+metadata:
+  name: laya-bench
+  namespace: <your-namespace>
+  labels:
+    app: laya-bench
+spec:
+  restartPolicy: Never
+  nodeSelector:
+    kubernetes.io/hostname: <gpu-node>
+  containers:
+    - name: bench
+      image: pytorch/pytorch:2.14.0-cuda13.0-cudnn9-runtime
+      command: ["bash", "-c", "mkdir -p /work /tmp/hf && sleep infinity"]
+      workingDir: /work
+      env:
+        - { name: HOME, value: /tmp }          # pods run under a random UID; torch/HF crash on getpwuid() otherwise
+        - { name: HF_HOME, value: /tmp/hf }
+        - { name: USER, value: bench }
+        - { name: LOGNAME, value: bench }
+        - { name: OMP_NUM_THREADS, value: "8" }
+        - { name: PYTHONUNBUFFERED, value: "1" }
+      resources:
+        requests: { cpu: "8", memory: 32Gi }
+        limits:
+          cpu: "16"
+          memory: 64Gi
+          nvidia.com/gpu: "1"        # <- replace with nvidia.com/mig-2g.24gb / mig-1g.12gb for slice runs
+      volumeMounts:
+        - { name: work, mountPath: /work }
+        - { name: shm, mountPath: /dev/shm }
+  volumes:
+    - name: work
+      emptyDir: { sizeLimit: 40Gi }
+    - name: shm
+      emptyDir: { medium: Memory, sizeLimit: 8Gi }

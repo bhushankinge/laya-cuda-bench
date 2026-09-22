@@ -1,0 +1,20 @@
+{
+  "route": {
+    "type": "choice",
+    "instructions": "Which team should own this solicitation?",
+    "criteria": {
+      "hardware": "IT hardware, servers, networking gear, laptops, peripherals",
+      "software": "software licenses, subscriptions, SaaS, cloud services",
+      "services": "professional services, staffing, maintenance, consulting"
+    }
+  },
+  "severity": {
+    "type": "score",
+    "instructions": "How time-critical is responding to this notice?",
+    "criteria": ["routine, weeks of lead time", "tight, respond within days", "urgent, same-day action needed"]
+  },
+  "needs_human": {
+    "type": "noul",
+    "instructions": "Does this notice require a human reviewer before any automated response is sent?"
+  }
+}

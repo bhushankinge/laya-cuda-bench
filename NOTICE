@@ -1,0 +1,15 @@
+laya-cuda-bench
+Copyright 2026 Bhushan Kinge
+
+This repository is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+It measures and builds on third-party work, pinned in manifest.json:
+
+- Laya model weights and the `laya` Python package, Convai Innovations / NandhaKishorM/laya, Apache-2.0.
+  harness/predict.py mirrors the calibration and answer formatting of laya/agent.py.
+- laya-mlx, mizorewww/laya-mlx, Apache-2.0. fixtures/parity/cases.json, state.json and questions.json are
+  the port's parity fixtures (benchmarks/common.py::parity_cases and examples/); fixtures/parity/expected/
+  are its published validation results. The timing boundary follows its BENCHMARKS.md.
+- receptron/laya, MIT. harness/export_onnx.py follows its export wrapper and dynamic-shape setup.
+- Workload text: public U.S. federal contract opportunity notices from SAM.gov's data.gov bulk extract
+  (fixtures/workload/source.json records the file version).

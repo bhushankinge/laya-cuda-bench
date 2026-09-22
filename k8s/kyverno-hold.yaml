@@ -1,0 +1,36 @@
+# Temporary hold: stop Knative/KServe from re-creating the Qwen predictor pod (which would grab GPU 0 back)
+# while the benchmark owns the GPU. Denies CREATE of any pod in our namespace that requests nvidia.com/gpu
+# unless it is our bench pod. KServe 0.14 has no stop annotation and quota edits are reconciled away, so
+# this is the mechanism that worked on 2026-07-07. DELETE THIS POLICY at restore.
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: laya-bench-hold-gpu
+  annotations:
+    policies.kyverno.io/description: "Temporary: hold the managed inference service GPU predictors down during the laya-cuda-bench window."
+spec:
+  validationFailureAction: Enforce
+  background: false
+  rules:
+    - name: deny-gpu-pods-in-bhushan-ns
+      match:
+        any:
+          - resources:
+              kinds: [Pod]
+              operations: [CREATE]
+              namespaces: [<your-namespace>]
+      exclude:
+        any:
+          - resources:
+              kinds: [Pod]
+              selector:
+                matchLabels:
+                  app: laya-bench
+      preconditions:
+        all:
+          - key: '{{ request.object.spec.containers[*].resources.limits."nvidia.com/gpu" || request.object.spec.containers[*].resources.requests."nvidia.com/gpu" || '''' }}'
+            operator: AnyNotIn
+            value: ["", "0"]
+      validate:
+        message: "laya-cuda-bench maintenance window: GPU pods are held down in this namespace (k8s/kyverno-hold.yaml)."
+        deny: {}

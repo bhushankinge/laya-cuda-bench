@@ -1,0 +1,41 @@
+# Temporary Qwen3.5-4B baseline server on the H100 (image already cached on the node). Same label as the
+# bench pod so the Kyverno hold lets it through. Port-forward or curl from the node:
+#   kubectl port-forward pod/laya-bench-qwen4b 8010:8080
+#   python -m harness.llm_baseline --box h100nvl --label qwen3.5-4b --base-url http://127.0.0.1:8010/v1 --llm-model Qwen/Qwen3.5-4B --no-think
+apiVersion: v1
+kind: Pod
+metadata:
+  name: laya-bench-qwen4b
+  namespace: <your-namespace>
+  labels:
+    app: laya-bench
+spec:
+  restartPolicy: Never
+  nodeSelector:
+    kubernetes.io/hostname: <gpu-node>
+  containers:
+    - name: vllm
+      image: vllm/vllm-openai:v0.24.0
+      args: ["Qwen/Qwen3.5-4B", "--port", "8080", "--max-model-len", "8192", "--gpu-memory-utilization", "0.85",
+             "--served-model-name", "Qwen/Qwen3.5-4B"]
+      env:
+        - { name: HOME, value: /tmp }
+        - { name: HF_HOME, value: /tmp/hf }
+        - { name: USER, value: bench }
+        - { name: LOGNAME, value: bench }
+      ports: [{ containerPort: 8080 }]
+      resources:
+        requests: { cpu: "8", memory: 32Gi }
+        limits: { cpu: "16", memory: 64Gi, nvidia.com/gpu: "1" }
+      readinessProbe:
+        httpGet: { path: /health, port: 8080 }
+        initialDelaySeconds: 60
+        periodSeconds: 10
+      volumeMounts:
+        - { name: hf, mountPath: /tmp/hf }
+        - { name: shm, mountPath: /dev/shm }
+  volumes:
+    - name: hf
+      emptyDir: { sizeLimit: 40Gi }
+    - name: shm
+      emptyDir: { medium: Memory, sizeLimit: 8Gi }

@@ -1,0 +1,29 @@
+# Two ADDITIVE entries for ConfigMap custom-mig-config (ns gpu-operator), H100 NVL device id 0x232110DE.
+# Both partition GPU 0 ONLY; GPU 1 stays whole (the colleague's deployment). Merge these under `mig-configs:`
+# in the existing config.yaml (snapshot it first) -- do not replace the platform's small/medium/large/whole.
+#
+#   mixed-bd  : 1x 2g.24gb + 4x 1g.12gb   (proven 2026-07-07)  -> single-slice sweeps on both profiles
+#   all-1g-bd : 7x 1g.12gb                                        -> 7-slice aggregate sweep + replay
+#
+# Activate with:  kubectl label node <gpu-node> nvidia.com/mig.config=<name> --overwrite
+# (strategy must be `mixed`, gpunodeconfig-controller-manager scaled to 0, GPU 0 idle). Restore label `whole`.
+mig-configs:
+  mixed-bd:
+    - device-filter: ["0x232110DE"]
+      devices: [0]
+      mig-enabled: true
+      mig-devices:
+        "2g.24gb": 1
+        "1g.12gb": 4
+    - device-filter: ["0x232110DE"]
+      devices: [1]
+      mig-enabled: false
+  all-1g-bd:
+    - device-filter: ["0x232110DE"]
+      devices: [0]
+      mig-enabled: true
+      mig-devices:
+        "1g.12gb": 7
+    - device-filter: ["0x232110DE"]
+      devices: [1]
+      mig-enabled: false
