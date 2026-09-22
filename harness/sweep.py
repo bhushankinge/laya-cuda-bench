@@ -77,8 +77,12 @@ def main():
                 print(f"target {qps:7.1f} q/s -> achieved {summary.get('achieved_qps', 0):7.1f}  "
                       f"p50 {summary.get('p50_ms', 0):6.1f}  p99 {summary.get('p99_ms', 0):7.1f} ms  "
                       f"batch~{summary.get('mean_served_batch', 0):.1f}  {summary.get('power_watts_mean', 0):.0f} W", flush=True)
-                saturated = summary.get("ok", 0) == 0 or summary["achieved_qps"] < 0.95 * qps or \
-                    summary["p99_ms"] > 4 * max(args.slo_ms) or summary.get("errors", 0) > 0
+                # Saturated when the server can no longer keep up: errors, a tail far past the loosest SLO, requests
+                # completing well below the offered rate, or latency climbing through the step (queue growth).
+                # achieved/target alone is noisy at low rates (few requests per step), so it only counts when gross.
+                saturated = summary.get("ok", 0) == 0 or summary.get("errors", 0) > 0 or \
+                    summary["p99_ms"] > 4 * max(args.slo_ms) or summary["achieved_qps"] < 0.8 * qps or \
+                    summary["latency_trend"] > 2.0
                 if saturated:
                     break
                 qps *= args.factor
@@ -89,7 +93,8 @@ def main():
 
     sustained = {}
     for slo in args.slo_ms:
-        good = [s for s in steps if s.get("ok") and s["achieved_qps"] >= 0.98 * s["target_qps"] and s["p99_ms"] <= slo]
+        good = [s for s in steps if s.get("ok") and s["achieved_qps"] >= 0.9 * s["target_qps"] and s["p99_ms"] <= slo
+                and s["latency_trend"] <= 1.5]
         best = max(good, key=lambda s: s["target_qps"]) if good else None
         sustained[str(int(slo))] = None if not best else {
             "target_qps": best["target_qps"], "achieved_qps": best["achieved_qps"], "decisions_per_s": best["decisions_per_s"],

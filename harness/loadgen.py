@@ -28,10 +28,15 @@ def summarize(rows):
         return {"requests": len(rows), "ok": 0}
     span = max(r["t_done"] for r in ok) - min(r["t_sched"] for r in ok)
     pct = lambda p: lat[min(len(lat) - 1, int(math.ceil(p * len(lat))) - 1)]
+    by_time = sorted(ok, key=lambda r: r["t_sched"])
+    third = max(1, len(by_time) // 3)
+    med = lambda rs: sorted(r["latency_ms"] for r in rs)[len(rs) // 2]
     return {"requests": len(rows), "ok": len(ok), "errors": len(rows) - len(ok), "achieved_qps": len(ok) / span,
             "decisions_per_s": sum(r["n_decisions"] for r in ok) / span, "p50_ms": pct(0.5), "p95_ms": pct(0.95),
             "p99_ms": pct(0.99), "max_ms": lat[-1], "mean_send_lag_ms": sum(r["send_lag_ms"] for r in ok) / len(ok),
-            "mean_served_batch": sum(r["served_batch"] for r in ok) / len(ok)}
+            "mean_served_batch": sum(r["served_batch"] for r in ok) / len(ok),
+            # open-loop saturation signal: the queue grows within the step -> the last third is slower than the first
+            "latency_trend": med(by_time[-third:]) / max(1e-9, med(by_time[:third]))}
 
 
 def schedule_poisson(qps, duration, rng):
