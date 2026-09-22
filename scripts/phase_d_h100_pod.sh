@@ -7,6 +7,7 @@
 set -u
 cd /work
 export HOME=/tmp HF_HOME=/tmp/hf OMP_NUM_THREADS=${OMP_NUM_THREADS:-8}
+export PIP_BREAK_SYSTEM_PACKAGES=1   # the image's python is Debian-managed (PEP 668); we install into the throwaway container
 export LAYA_TRT_MAX_BATCH=${LAYA_TRT_MAX_BATCH:-256}
 BOX=${BOX:-h100nvl}
 PY=python

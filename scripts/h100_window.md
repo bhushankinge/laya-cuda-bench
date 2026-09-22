@@ -11,7 +11,7 @@ confirmed live with the user before running. Hard rule: restore starts no later 
       `$K get clusterpolicies.nvidia.com cluster-policy -o yaml`, `$K -n gpu-operator get cm custom-mig-config -o yaml`,
       `$K get gpumigconfigs -A -o yaml`, `$K -n <your-namespace> get resourcequota,isvc,revisions -o yaml`.
 - [ ] Merge `k8s/mig-configs.yaml` entries into `custom-mig-config` (additive; inert until the node label changes).
-- [ ] Dry run `k8s/bench-pod.yaml` with the GPU limit removed: image pull, `kubectl cp` of `harness/ fixtures/ models/laya models/laya-multilingual requirements.txt setup_env.sh`,
+- [x] (2026-09-22, setup stage 368 s, `PIP_BREAK_SYSTEM_PACKAGES=1` needed) Dry run `k8s/bench-pod.yaml` with the GPU limit removed: image pull, `kubectl cp` of `harness/ fixtures/ models/laya models/laya-multilingual requirements.txt setup_env.sh`,
       `pip install` (torch is already in the image: install `-r requirements.txt` minus torch, then ORT cu13 feed + tensorrt-cu13), `python -m harness.workload`. Delete the pod.
 - [ ] Colleague informed: `qwen3-8b` restarts at the MIG transition (~T+2:50) and at restore (~T+4:40).
 - [ ] Tarball ready: `tar czf /tmp/laya-bench.tgz harness fixtures models/laya models/laya-multilingual requirements.txt setup_env.sh` (weights 1.5 GB) — or `hf download` inside the pod.
@@ -23,7 +23,7 @@ confirmed live with the user before running. Hard rule: restore starts no later 
 | 0:20 | On workstation: `<llm-failover-script>` → standby; smoke `curl workstation:8000/v1/chat/completions` | application answers from workstation |
 | 0:30 | `$K apply -f k8s/kyverno-hold.yaml`; `$K -n <your-namespace> delete pod -l serving.kserve.io/inferenceservice=qwen3-5-35b-a3b-fp8`; delete superseded revisions | `nvidia-smi`: GPU 0 idle, 0 MiB |
 | 0:35 | Pin clocks: `sudo chroot /run/nvidia/driver nvidia-smi -i 0 -lgc 1785,1785` | `clocks.sm` reads 1785 |
-| 0:40 | `$K apply -f k8s/bench-pod.yaml` (nvidia.com/gpu: 1); `kubectl cp` tarball; install; `python -m harness.envinfo --box h100nvl` | env.json shows H100 NVL, driver 580.95 |
+| 0:40 | `$K apply -f k8s/bench-pod.yaml` (nvidia.com/gpu: 1); `kubectl cp` tarball (`~/laya-bench-prep/laya-bench.tgz`, 13 s) and extract; then `kubectl cp ~/laya-bench-prep/phase_d_h100_pod.sh <pod>:/work/scripts/ -c bench` (tarball has the pre-PEP668 script); `bash scripts/phase_d_h100_pod.sh setup` (368 s in the dry run) | env.json shows H100 NVL, driver 580.95; `trt 10.16.1.11` printed |
 | 0:45 | **Parity gate**: `python -m harness.parity --box h100nvl --backends eager-fp16 eager-fp32 ort-cuda-fp16 ort-trt-fp16 compile-fp16 --models laya laya-multilingual` | 63/63 everywhere → GO; else stop and restore |
 | 0:55 | Shootout: `python -m harness.shootout --box h100nvl --models laya laya-multilingual` (~40 min) | JSONL under `results/h100nvl/shootout/` |
 | 1:35 | Server sweeps: `python -m harness.sweep --box h100nvl --model laya --backend <winner> --start-qps 50 --factor 1.4`; same for `laya-multilingual` (~15 min each) | `*.sweep.json` with sustained rows for 50/130 ms |
