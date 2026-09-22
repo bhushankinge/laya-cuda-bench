@@ -18,18 +18,20 @@ $PY -m harness.shootout --box $BOX --models laya laya-multilingual --backends ea
 for m in laya laya-multilingual; do
   for b in eager-fp16 ort-trt-fp16; do
     log "sweep $m $b"
-    $PY -m harness.sweep --box $BOX --model $m --backend $b --start-qps 20 --factor 1.5 --warmup 20 --duration 60 2>&1 | grep -E "target|SLO|wrote|rror"
+    # max-batch 16: at 64 a queue of long rows becomes a ~1 s forward and the tail collapses (seen 2026-09-22 at 30 q/s)
+    $PY -m harness.sweep --box $BOX --model $m --backend $b --max-batch 16 --start-qps 5 --factor 1.4 --warmup 20 --duration 60 2>&1 | grep -E "target|SLO|wrote|rror"
   done
   log "offline $m"
   $PY -m harness.offline --box $BOX --model $m --backend eager-fp16 --start 1024 2>&1 | grep -E "batch|decisions|rror"
 done
 
-log "large-org day replay: 10M decisions/day compressed 24x into 1 h, laya eager-fp16"
-$PY -m harness.server --model laya --backend eager-fp16 --max-batch 64 --max-delay-ms 2 --port 8080 > results/$BOX/replay-server.log 2>&1 &
+# 2M decisions/day (~8 q/s mean, ~14 q/s peak) fits under this card's knee; the big GPUs replay the 10M/day org
+log "large-org day replay: 2M decisions/day, 24 h shape walked in 1 h at real hourly rates, laya eager-fp16"
+$PY -m harness.server --model laya --backend eager-fp16 --max-batch 16 --max-delay-ms 2 --port 8080 > results/$BOX/replay-server.log 2>&1 &
 SRV=$!
 until curl -sf http://127.0.0.1:8080/healthz >/dev/null; do sleep 5; done
 mkdir -p results/$BOX/replay
-$PY -m harness.loadgen --url http://127.0.0.1:8080/predict --model laya --curve fixtures/workload/diurnal.csv --total-decisions 10000000 --compress 24 \
-  --out results/$BOX/replay/laya.eager-fp16.10M-day.jsonl 2>&1 | tail -15
+$PY -m harness.loadgen --url http://127.0.0.1:8080/predict --model laya --curve fixtures/workload/diurnal.csv --total-decisions 2000000 --compress 24 \
+  --out results/$BOX/replay/laya.eager-fp16.2M-day.jsonl 2>&1 | tail -15
 kill $SRV; wait $SRV 2>/dev/null
 log "done"

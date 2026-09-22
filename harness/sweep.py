@@ -84,7 +84,13 @@ def main():
                     summary["p99_ms"] > 4 * max(args.slo_ms) or summary["achieved_qps"] < 0.8 * qps or \
                     summary["latency_trend"] > 2.0
                 if saturated:
-                    break
+                    if any(not s["saturated"] for s in steps[:-1]):
+                        summary["saturated"] = True
+                        break
+                    summary["saturated"] = True   # first step already too high: step down until one is clean
+                    qps /= args.factor
+                    continue
+                summary["saturated"] = False
                 qps *= args.factor
     finally:
         if proc:

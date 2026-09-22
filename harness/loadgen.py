@@ -48,9 +48,11 @@ def schedule_poisson(qps, duration, rng):
 
 
 def schedule_curve(curve_csv, total_decisions, compress, rng, decisions_per_request=3):
-    """curve_csv: hour,weight (24 rows). Scales to total_decisions/day, compresses 24 h into 24/compress h."""
+    """curve_csv: hour,weight (24 rows). total_decisions is the DAY's volume; each hour is replayed for
+    3600/compress s at that hour's real arrival rate (so compress=24 walks the day's shape in 1 h without
+    inflating the rate). Requests actually sent = total/decisions_per_request/compress."""
     weights = [float(l.split(",")[1]) for l in Path(curve_csv).read_text().splitlines()[1:] if l.strip()]
-    total_req = total_decisions / decisions_per_request
+    total_req = total_decisions / decisions_per_request / compress
     hour_s = 3600.0 / compress
     out, t0 = [], 0.0
     for w in weights:
@@ -127,9 +129,12 @@ def _selftest():
     rng = random.Random(1)
     n = len(schedule_poisson(100, 60, rng))
     assert 5600 <= n <= 6400, n
-    curve = schedule_curve(str(Path(__file__).resolve().parents[1] / "fixtures/workload/diurnal.csv"), 300_000, 24, rng)
+    # 7.2M decisions/day = 100k requests/h on average; compressed 24x the hour-long replay carries 100k requests
+    curve = schedule_curve(str(Path(__file__).resolve().parents[1] / "fixtures/workload/diurnal.csv"), 7_200_000, 24, rng)
     assert abs(len(curve) - 100_000) < 3_000, len(curve)
     assert curve[-1] <= 3600 * 1.01, curve[-1]
+    # rate preserved: uncompressed, the same day yields 24x the requests over 24 h
+    assert abs(len(schedule_curve(str(Path(__file__).resolve().parents[1] / "fixtures/workload/diurnal.csv"), 7_200_000, 1, rng)) - 2_400_000) < 30_000
     rows = [{"status": 200, "latency_ms": i, "t_sched": i / 100, "t_done": i / 100 + i / 1e3, "n_decisions": 3,
              "send_lag_ms": 0, "served_batch": 4} for i in range(1, 101)]
     s = summarize(rows)
