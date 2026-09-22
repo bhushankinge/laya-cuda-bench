@@ -1,0 +1,27 @@
+{
+ "url": "https://api.typesafe.ai/v1/systemone",
+ "max_rps_cap": 25.0,
+ "levels": {
+  "32": {
+   "requests": 1500,
+   "ok": 1500,
+   "errors": 0,
+   "achieved_qps": 24.94196968948395,
+   "decisions_per_s": 74.82590906845186,
+   "p50_ms": 158.7794970255345,
+   "p95_ms": 240.02886097878218,
+   "p99_ms": 310.912869987078,
+   "max_ms": 1634.3070819275454,
+   "mean_send_lag_ms": 0.0,
+   "mean_served_batch": 1.0,
+   "rate_limited": false,
+   "status_counts": {
+    "200": 1500
+   },
+   "mean_input_tokens_per_request": 657.9786666666666,
+   "mean_decisions_per_request": 3.0,
+   "model": "jev-1.13.0"
+  }
+ },
+ "ts": "2026-09-22T16:14:18Z"
+}

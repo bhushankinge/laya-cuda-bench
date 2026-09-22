@@ -45,14 +45,16 @@ def torch_compile(model, dtype: str = "fp16", mode: str = "max-autotune"):
     return fn
 
 
-def ort_session(onnx_path: Path, provider: str, trt_cache: Path = None, trt_profile: dict = None):
-    """provider: 'cuda' or 'trt'. trt_profile: {'min': 'input_ids:1x8,...', 'opt': ..., 'max': ...}."""
+def ort_session(onnx_path: Path, provider: str, trt_cache: Path = None, trt_profile: dict = None, tf32: bool = True):
+    """provider: 'cuda' or 'trt'. trt_profile: {'min': 'input_ids:1x8,...', 'opt': ..., 'max': ...}.
+    tf32=False makes the CUDA EP do true FP32 matmuls (its default TF32 costs ~2.6e-3 probability error vs torch FP32)."""
     import onnxruntime as ort
 
     so = ort.SessionOptions()
     so.graph_optimization_level = ort.GraphOptimizationLevel.ORT_ENABLE_ALL
     if provider == "cuda":
-        providers = [("CUDAExecutionProvider", {"device_id": 0})]
+        providers = [("CUDAExecutionProvider", {"device_id": 0, "use_tf32": 1 if tf32 else 0,
+                                                "arena_extend_strategy": "kSameAsRequested"})]
     elif provider == "trt":
         opts = {"device_id": 0, "trt_fp16_enable": True, "trt_engine_cache_enable": True,
                 "trt_engine_cache_path": str(trt_cache or Path("trt_cache")), "trt_timing_cache_enable": True}

@@ -1,0 +1,67 @@
+{
+ "url": "https://api.typesafe.ai/v1/systemone",
+ "max_rps_cap": 10.0,
+ "levels": {
+  "1": {
+   "requests": 100,
+   "ok": 100,
+   "errors": 0,
+   "achieved_qps": 6.138100599226724,
+   "decisions_per_s": 18.41430179768017,
+   "p50_ms": 151.54790307860821,
+   "p95_ms": 222.74464496877044,
+   "p99_ms": 334.2406649608165,
+   "max_ms": 432.1932930033654,
+   "mean_send_lag_ms": 0.0,
+   "mean_served_batch": 1.0,
+   "rate_limited": false,
+   "status_counts": {
+    "200": 100
+   },
+   "mean_input_tokens_per_request": 483.68,
+   "mean_decisions_per_request": 3.0,
+   "model": "jev-1.13.0"
+  },
+  "8": {
+   "requests": 200,
+   "ok": 200,
+   "errors": 0,
+   "achieved_qps": 9.971222589470779,
+   "decisions_per_s": 29.913667768412335,
+   "p50_ms": 157.11253404151648,
+   "p95_ms": 224.46223499719054,
+   "p99_ms": 301.61210300866514,
+   "max_ms": 309.8068250110373,
+   "mean_send_lag_ms": 0.0,
+   "mean_served_batch": 1.0,
+   "rate_limited": false,
+   "status_counts": {
+    "200": 200
+   },
+   "mean_input_tokens_per_request": 532.355,
+   "mean_decisions_per_request": 3.0,
+   "model": "jev-1.13.0"
+  },
+  "32": {
+   "requests": 300,
+   "ok": 300,
+   "errors": 0,
+   "achieved_qps": 9.987813006712809,
+   "decisions_per_s": 29.963439020138427,
+   "p50_ms": 164.10765703767538,
+   "p95_ms": 239.42346591502428,
+   "p99_ms": 328.9593890076503,
+   "max_ms": 369.7101559955627,
+   "mean_send_lag_ms": 0.0,
+   "mean_served_batch": 1.0,
+   "rate_limited": false,
+   "status_counts": {
+    "200": 300
+   },
+   "mean_input_tokens_per_request": 583.1,
+   "mean_decisions_per_request": 3.0,
+   "model": "jev-1.13.0"
+  }
+ },
+ "ts": "2026-09-22T16:11:41Z"
+}

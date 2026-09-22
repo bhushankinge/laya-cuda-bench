@@ -14,4 +14,4 @@ aiohttp
 pandas
 matplotlib
 jupyter
-# onnxruntime-gpu==1.30.0 and tensorrt-cu13==11.3.0.99 are installed by setup_env.sh from their own indexes.
+# onnxruntime-gpu==1.30.0 (CUDA 13 feed) and tensorrt-cu13==10.16.1.11 (ORT 1.30 links TRT 10) are installed by setup_env.sh.
