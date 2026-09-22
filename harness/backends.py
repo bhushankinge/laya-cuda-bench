@@ -50,6 +50,12 @@ def ort_session(onnx_path: Path, provider: str, trt_cache: Path = None, trt_prof
     tf32=False makes the CUDA EP do true FP32 matmuls (its default TF32 costs ~2.6e-3 probability error vs torch FP32)."""
     import onnxruntime as ort
 
+    if provider == "trt":
+        # pip TensorRT lives in site-packages/tensorrt_libs, which is not on the loader path; preload it.
+        import ctypes, importlib.util
+        libdir = Path(importlib.util.find_spec("tensorrt_libs").origin).parent
+        for lib in ("libnvinfer.so.10", "libnvinfer_plugin.so.10", "libnvonnxparser.so.10"):
+            ctypes.CDLL(str(libdir / lib), mode=ctypes.RTLD_GLOBAL)
     so = ort.SessionOptions()
     so.graph_optimization_level = ort.GraphOptimizationLevel.ORT_ENABLE_ALL
     if provider == "cuda":
@@ -57,14 +63,19 @@ def ort_session(onnx_path: Path, provider: str, trt_cache: Path = None, trt_prof
                                                 "arena_extend_strategy": "kSameAsRequested"})]
     elif provider == "trt":
         opts = {"device_id": 0, "trt_fp16_enable": True, "trt_engine_cache_enable": True,
-                "trt_engine_cache_path": str(trt_cache or Path("trt_cache")), "trt_timing_cache_enable": True}
+                "trt_engine_cache_path": str(trt_cache or Path("trt_cache")), "trt_timing_cache_enable": True,
+                "trt_layer_norm_fp32_fallback": True}  # pure-FP16 LayerNorm put the max probability error at 0.025 (> port's 0.02)
         if trt_profile:
             opts.update({"trt_profile_min_shapes": trt_profile["min"], "trt_profile_opt_shapes": trt_profile["opt"],
                          "trt_profile_max_shapes": trt_profile["max"]})
         providers = [("TensorrtExecutionProvider", opts), ("CUDAExecutionProvider", {"device_id": 0})]
     else:
         raise ValueError(provider)
-    return ort.InferenceSession(str(onnx_path), so, providers=providers)
+    sess = ort.InferenceSession(str(onnx_path), so, providers=providers)
+    want = {"cuda": "CUDAExecutionProvider", "trt": "TensorrtExecutionProvider"}[provider]
+    if sess.get_providers()[0] != want:  # ORT falls back silently; a benchmark row must never mislabel its backend
+        raise RuntimeError(f"requested {want} but session runs on {sess.get_providers()}")
+    return sess
 
 
 def ort_backend(onnx_path: Path, provider: str = "cuda", **kw):
@@ -80,5 +91,7 @@ def ort_backend(onnx_path: Path, provider: str = "cuda", **kw):
         return np.asarray(logits, dtype=np.float32), np.asarray(act, dtype=np.float32)
 
     fn.name = f"ort-{provider}-{Path(onnx_path).stem.split('-')[-1]}"
+    if provider == "trt" and kw.get("trt_profile"):
+        fn.name += "-maxb" + kw["trt_profile"]["max"].split(":")[1].split("x")[0]
     fn.session_build_s = build_s  # TRT engine build happens lazily on first run; see fn.first_run_s in callers
     return fn

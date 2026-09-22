@@ -41,6 +41,8 @@ def collect(box):
         "cpu_count": os.cpu_count(),
         "ram_gb": round(os.sysconf("SC_PAGE_SIZE") * os.sysconf("SC_PHYS_PAGES") / 1e9, 1),
         "omp_num_threads": os.environ.get("OMP_NUM_THREADS"),
+        "torch_disable_native_jit": os.environ.get("TORCH_DISABLE_NATIVE_JIT"),
+        "laya_trt_max_batch": os.environ.get("LAYA_TRT_MAX_BATCH", "256"),
         "packages": {p: _pkg(p) for p in (
             "torch", "transformers", "onnxruntime-gpu", "onnxruntime", "tensorrt-cu13", "tensorrt",
             "laya", "nvidia-ml-py", "numpy", "huggingface_hub", "typesafe-sdk")},

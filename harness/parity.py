@@ -49,7 +49,11 @@ def make_backend(name, agent, model_name):
     raise ValueError(name)
 
 
-def trt_profile(agent, max_batch=256):
+def trt_profile(agent, max_batch=None):
+    """TensorRT optimisation profile. The max shape sets engine-build workspace: 256x512 needs ~10 GB, so small
+    cards set LAYA_TRT_MAX_BATCH (e.g. 32 on an 8 GB laptop); the recorded backend name carries the value."""
+    import os
+    max_batch = max_batch or int(os.environ.get("LAYA_TRT_MAX_BATCH", 256))
     L = agent.cfg.get("max_len", 512)
     shp = lambda b, l, k: f"input_ids:{b}x{l},attention_mask:{b}x{l},marker_pos:{b}x{k},marker_mask:{b}x{k},qtype:{b}"
     return {"min": shp(1, 8, 2), "opt": shp(16, 256, 4), "max": shp(max_batch, L, 20)}
@@ -149,6 +153,8 @@ def main():
             rep.update({"model": name, "verdict": verdict(rep, backend)})
             failures += rep["verdict"].startswith("FAIL")
             report["results"] = [r for r in report["results"] if not (r["model"] == name and r["backend"] == rep["backend"])] + [rep]
+            out_path.parent.mkdir(parents=True, exist_ok=True)
+            out_path.write_text(json.dumps(report, indent=1) + "\n")  # crash-safe: a later engine-build OOM must not lose rows
             print(f"{name:22s} {rep['backend']:28s} {rep['argmax_agreements']}/{rep['questions']} argmax  "
                   f"p_err={rep['probability_max_abs_error']:.3g} act_err={rep['action_probability_max_abs_error']:.3g} "
                   f"growth={rep['stability']['allocated_growth_bytes']}B  {rep['verdict']}", flush=True)
