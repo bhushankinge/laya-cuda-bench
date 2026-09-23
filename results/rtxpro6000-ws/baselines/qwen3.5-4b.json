@@ -1,0 +1,58 @@
+{
+ "box": "rtxpro6000-ws",
+ "label": "qwen3.5-4b",
+ "base_url": "http://127.0.0.1:8010/v1",
+ "llm_model": "Qwen/Qwen3.5-4B",
+ "levels": {
+  "1": {
+   "requests": 60,
+   "ok": 60,
+   "errors": 0,
+   "achieved_qps": 2.4356720321508694,
+   "decisions_per_s": 7.307016096452608,
+   "p50_ms": 218.50842899584677,
+   "p95_ms": 221.09014500165358,
+   "p99_ms": 11379.309018986532,
+   "max_ms": 11379.309018986532,
+   "mean_send_lag_ms": 0.0,
+   "mean_served_batch": 1.0,
+   "latency_trend": 0.999498321469122,
+   "mean_prompt_tokens": 204.91666666666666,
+   "mean_completion_tokens": 27.0
+  },
+  "16": {
+   "requests": 120,
+   "ok": 120,
+   "errors": 0,
+   "achieved_qps": 39.469422278861664,
+   "decisions_per_s": 118.408266836585,
+   "p50_ms": 373.185974007356,
+   "p95_ms": 469.7936379961902,
+   "p99_ms": 471.15640999982134,
+   "max_ms": 471.3045769894961,
+   "mean_send_lag_ms": 0.0,
+   "mean_served_batch": 1.0,
+   "latency_trend": 0.9985762974014873,
+   "mean_prompt_tokens": 207.53333333333333,
+   "mean_completion_tokens": 27.0
+  },
+  "64": {
+   "requests": 240,
+   "ok": 240,
+   "errors": 0,
+   "achieved_qps": 67.37041644601123,
+   "decisions_per_s": 202.11124933803373,
+   "p50_ms": 870.8866020024288,
+   "p95_ms": 1088.7034800107358,
+   "p99_ms": 1089.0882880048594,
+   "max_ms": 1228.7519569945289,
+   "mean_send_lag_ms": 0.0,
+   "mean_served_batch": 1.0,
+   "latency_trend": 1.0594633542549965,
+   "mean_prompt_tokens": 279.5125,
+   "mean_completion_tokens": 27.0
+  }
+ },
+ "note": "closed-loop clients; decisions = 3 per request; guided JSON via response_format json_schema",
+ "ts": "2026-09-23T06:29:08Z"
+}

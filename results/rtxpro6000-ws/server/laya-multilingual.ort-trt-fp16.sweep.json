@@ -1,0 +1,66 @@
+{
+ "box": "rtxpro6000-ws",
+ "model": "laya-multilingual",
+ "backend": "ort-trt-fp16-maxb256",
+ "label": "",
+ "max_batch": 128,
+ "max_delay_ms": 2.0,
+ "server_startup_s": 33.045143842697144,
+ "warmup_s": 20.0,
+ "step_s": 60.0,
+ "slo_ms": [
+  50,
+  130
+ ],
+ "sustained": {
+  "50": null,
+  "130": null
+ },
+ "steps": [
+  {
+   "requests": 2914,
+   "ok": 2914,
+   "errors": 0,
+   "achieved_qps": 48.56205184701954,
+   "decisions_per_s": 145.6861555410586,
+   "p50_ms": 21.291794403396125,
+   "p95_ms": 142.6146334274634,
+   "p99_ms": 365.35367491578086,
+   "max_ms": 547.6572151527464,
+   "mean_send_lag_ms": 0.7638550037563131,
+   "mean_served_batch": 6.67124227865477,
+   "latency_trend": 0.9350631125540101,
+   "target_qps": 50.0,
+   "power_watts_mean": 198.37239166666666,
+   "power_watts_max": 403.64,
+   "power_sm_mhz_mean": 2579.2366666666667,
+   "power_vram_used_mb_max": 20708.625,
+   "power_samples": 600,
+   "power_interval_s": 0.1,
+   "saturated": false
+  },
+  {
+   "requests": 4175,
+   "ok": 3255,
+   "errors": 920,
+   "achieved_qps": 38.932275789823365,
+   "decisions_per_s": 116.7968273694701,
+   "p50_ms": 19921.383298265093,
+   "p95_ms": 25578.398720046524,
+   "p99_ms": 26151.204530145224,
+   "max_ms": 27801.302923086852,
+   "mean_send_lag_ms": 0.8106689379644485,
+   "mean_served_batch": 128.85622119815667,
+   "latency_trend": 2.153699706725308,
+   "target_qps": 70.0,
+   "power_watts_mean": 392.96700119617225,
+   "power_watts_max": 455.075,
+   "power_sm_mhz_mean": 2551.6925837320573,
+   "power_vram_used_mb_max": 20737.5,
+   "power_samples": 836,
+   "power_interval_s": 0.1,
+   "saturated": true
+  }
+ ],
+ "ts": "2026-09-23T05:19:30.359628+00:00"
+}
