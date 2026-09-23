@@ -1,0 +1,58 @@
+{
+ "box": "h100nvl",
+ "label": "qwen3.5-4b",
+ "base_url": "http://127.0.0.1:8010/v1",
+ "llm_model": "Qwen/Qwen3.5-4B",
+ "levels": {
+  "1": {
+   "requests": 60,
+   "ok": 60,
+   "errors": 0,
+   "achieved_qps": 6.255659238239229,
+   "decisions_per_s": 18.766977714717687,
+   "p50_ms": 129.8464189749211,
+   "p95_ms": 134.65853105299175,
+   "p99_ms": 1887.1300749015063,
+   "max_ms": 1887.1300749015063,
+   "mean_send_lag_ms": 0.0,
+   "mean_served_batch": 1.0,
+   "latency_trend": 0.9943539534613592,
+   "mean_prompt_tokens": 204.91666666666666,
+   "mean_completion_tokens": 27.0
+  },
+  "16": {
+   "requests": 120,
+   "ok": 120,
+   "errors": 0,
+   "achieved_qps": 23.125751357495947,
+   "decisions_per_s": 69.37725407248784,
+   "p50_ms": 509.32296295650303,
+   "p95_ms": 1380.0810400862247,
+   "p99_ms": 1382.1177200879902,
+   "max_ms": 1383.4682069718838,
+   "mean_send_lag_ms": 0.0,
+   "mean_served_batch": 1.0,
+   "latency_trend": 0.6468204617388517,
+   "mean_prompt_tokens": 207.53333333333333,
+   "mean_completion_tokens": 27.0
+  },
+  "64": {
+   "requests": 240,
+   "ok": 240,
+   "errors": 0,
+   "achieved_qps": 66.56323128680036,
+   "decisions_per_s": 199.68969386040106,
+   "p50_ms": 902.3948491085321,
+   "p95_ms": 983.2059668842703,
+   "p99_ms": 987.0767560787499,
+   "max_ms": 993.2802999392152,
+   "mean_send_lag_ms": 0.0,
+   "mean_served_batch": 1.0,
+   "latency_trend": 1.083320623402884,
+   "mean_prompt_tokens": 279.5125,
+   "mean_completion_tokens": 27.0
+  }
+ },
+ "note": "closed-loop clients; decisions = 3 per request; guided JSON via response_format json_schema",
+ "ts": "2026-09-23T22:32:21Z"
+}
