@@ -5,10 +5,13 @@ sustained rate under each p99 SLO.
         --start-qps 5 --factor 1.5 --warmup 20 --duration 60 --slo-ms 50 130
 
 Starts harness.server as a subprocess, runs harness.loadgen in-process per step, samples power per
-step, stops once achieved QPS < 95% of target or p99 exceeds 4x the loosest SLO. Writes
-results/<box>/server/<model>.<backend>.sweep.json (+ per-step request JSONL next to it).
-A sustained point = achieved >= 98% of target and p99 <= SLO; the reported max is the largest such
-target, and decisions/day = decisions/s x 86,400.
+step. Geometric steps from --start-qps: up while the server keeps up, down first if the very first rate is
+already saturated. Saturated = errors, p99 > 4x the loosest SLO, achieved < 80% of target, or latency
+climbing through the step. Afterwards the sweep extends downward until the tightest SLO is met at some
+rate, then adds one step per SLO at the geometric mean of the best passing and the lowest failing rate,
+so each knee is located to within sqrt(factor). Writes results/<box>/server/<model>.<backend>.sweep.json
+(+ per-step request JSONL next to it). A sustained point = achieved >= 90% of target, p99 <= SLO and
+latency trend <= 1.5; the reported max is the largest such target; decisions/day = decisions/s x 86,400.
 """
 import argparse
 import asyncio
@@ -41,6 +44,10 @@ def start_server(model, backend, max_batch, max_delay_ms, port, timeout=900):
     raise TimeoutError("server did not become healthy")
 
 
+def meets(s, slo):
+    return bool(s.get("ok")) and s["p99_ms"] <= slo and s["latency_trend"] <= 1.5 and s["achieved_qps"] >= 0.9 * s["target_qps"]
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--box", required=True)
@@ -68,30 +75,44 @@ def main():
     steps, qps = [], args.start_qps
     try:
         with Sampler() as sampler:
-            for i in range(args.max_steps):
+            def run_step(qps):
+                i = len(steps)
                 times = schedule_poisson(qps, args.duration + args.warmup, random.Random(i))
                 t_meas = time.perf_counter() + args.warmup
                 summary, _ = asyncio.run(loadgen_run(url, args.model, times, out_dir / f"{tag}.qps{qps:.1f}.jsonl", args.warmup, i))
                 summary.update({"target_qps": qps, **{f"power_{k}": v for k, v in sampler.stats(since=t_meas).items()}})
-                steps.append(summary)
-                print(f"target {qps:7.1f} q/s -> achieved {summary.get('achieved_qps', 0):7.1f}  "
-                      f"p50 {summary.get('p50_ms', 0):6.1f}  p99 {summary.get('p99_ms', 0):7.1f} ms  "
-                      f"batch~{summary.get('mean_served_batch', 0):.1f}  {summary.get('power_watts_mean', 0):.0f} W", flush=True)
                 # Saturated when the server can no longer keep up: errors, a tail far past the loosest SLO, requests
                 # completing well below the offered rate, or latency climbing through the step (queue growth).
                 # achieved/target alone is noisy at low rates (few requests per step), so it only counts when gross.
-                saturated = summary.get("ok", 0) == 0 or summary.get("errors", 0) > 0 or \
-                    summary["p99_ms"] > 4 * max(args.slo_ms) or summary["achieved_qps"] < 0.8 * qps or \
-                    summary["latency_trend"] > 2.0
-                if saturated:
-                    if any(not s["saturated"] for s in steps[:-1]):
-                        summary["saturated"] = True
+                summary["saturated"] = summary.get("ok", 0) == 0 or summary.get("errors", 0) > 0 or \
+                    summary.get("p99_ms", 1e9) > 4 * max(args.slo_ms) or summary.get("achieved_qps", 0) < 0.8 * qps or \
+                    summary.get("latency_trend", 9) > 2.0
+                steps.append(summary)
+                print(f"target {qps:7.1f} q/s -> achieved {summary.get('achieved_qps', 0):7.1f}  "
+                      f"p50 {summary.get('p50_ms', 0):6.1f}  p99 {summary.get('p99_ms', 0):7.1f} ms  "
+                      f"batch~{summary.get('mean_served_batch', 0):.1f}  {summary.get('power_watts_mean', 0):.0f} W"
+                      f"{'  [saturated]' if summary['saturated'] else ''}", flush=True)
+                return summary
+
+            for _ in range(args.max_steps):
+                s = run_step(qps)
+                if s["saturated"]:
+                    if any(not x["saturated"] for x in steps[:-1]):
                         break
-                    summary["saturated"] = True   # first step already too high: step down until one is clean
-                    qps /= args.factor
-                    continue
-                summary["saturated"] = False
-                qps *= args.factor
+                    qps /= args.factor       # first rate already too high: step down until one is clean
+                else:
+                    qps *= args.factor
+            # the tightest SLO can sit below the first rate tried: extend downward until it is met (4 extra steps max)
+            for _ in range(4):
+                if any(meets(s, min(args.slo_ms)) for s in steps):
+                    break
+                run_step(min(s["target_qps"] for s in steps) / args.factor)
+            # sharpen each knee: one step at the geometric mean of the best passing and the lowest failing rate above it
+            for slo in args.slo_ms:
+                good = [s["target_qps"] for s in steps if meets(s, slo)]
+                bad = [s["target_qps"] for s in steps if good and s["target_qps"] > max(good) and not meets(s, slo)]
+                if good and bad:
+                    run_step((max(good) * min(bad)) ** 0.5)
     finally:
         if proc:
             proc.terminate()
@@ -99,8 +120,7 @@ def main():
 
     sustained = {}
     for slo in args.slo_ms:
-        good = [s for s in steps if s.get("ok") and s["achieved_qps"] >= 0.9 * s["target_qps"] and s["p99_ms"] <= slo
-                and s["latency_trend"] <= 1.5]
+        good = [s for s in steps if meets(s, slo)]
         best = max(good, key=lambda s: s["target_qps"]) if good else None
         sustained[str(int(slo))] = None if not best else {
             "target_qps": best["target_qps"], "achieved_qps": best["achieved_qps"], "decisions_per_s": best["decisions_per_s"],
@@ -109,7 +129,8 @@ def main():
             "joules_per_decision": (best.get("power_watts_mean") or 0) / best["decisions_per_s"]}
     report = {"box": args.box, "model": args.model, "backend": backend_name, "label": args.label, "max_batch": args.max_batch,
               "max_delay_ms": args.max_delay_ms, "server_startup_s": startup_s, "warmup_s": args.warmup, "step_s": args.duration,
-              "slo_ms": args.slo_ms, "sustained": sustained, "steps": steps, "ts": datetime.now(timezone.utc).isoformat()}
+              "slo_ms": args.slo_ms, "sustained": sustained, "steps": sorted(steps, key=lambda s: s["target_qps"]),
+              "ts": datetime.now(timezone.utc).isoformat()}
     path = out_dir / f"{tag}.sweep.json"
     path.write_text(json.dumps(report, indent=1) + "\n")
     for slo, s in sustained.items():
