@@ -1,0 +1,58 @@
+{
+ "box": "h100nvl",
+ "label": "qwen3.5-35b-a3b-fp8-direct",
+ "base_url": "http://127.0.0.1:8011/v1",
+ "llm_model": "Qwen/Qwen3.5-35B-A3B-FP8",
+ "levels": {
+  "1": {
+   "requests": 60,
+   "ok": 60,
+   "errors": 0,
+   "achieved_qps": 6.67162492264826,
+   "decisions_per_s": 20.01487476794478,
+   "p50_ms": 149.38416215591133,
+   "p95_ms": 152.35650609247386,
+   "p99_ms": 157.3976301588118,
+   "max_ms": 157.3976301588118,
+   "mean_send_lag_ms": 0.0,
+   "mean_served_batch": 1.0,
+   "latency_trend": 0.9964368523133196,
+   "mean_prompt_tokens": 204.91666666666666,
+   "mean_completion_tokens": 27.0
+  },
+  "16": {
+   "requests": 120,
+   "ok": 120,
+   "errors": 0,
+   "achieved_qps": 24.783461194439255,
+   "decisions_per_s": 74.35038358331776,
+   "p50_ms": 598.7067639362067,
+   "p95_ms": 699.3903380353004,
+   "p99_ms": 700.5947150755674,
+   "max_ms": 700.7117990870029,
+   "mean_send_lag_ms": 0.0,
+   "mean_served_batch": 1.0,
+   "latency_trend": 1.0004498187265465,
+   "mean_prompt_tokens": 207.53333333333333,
+   "mean_completion_tokens": 26.933333333333334
+  },
+  "64": {
+   "requests": 240,
+   "ok": 240,
+   "errors": 0,
+   "achieved_qps": 66.74218618767806,
+   "decisions_per_s": 200.2265585630342,
+   "p50_ms": 874.7235641349107,
+   "p95_ms": 1004.7807020600885,
+   "p99_ms": 1055.6558449752629,
+   "max_ms": 1056.463997112587,
+   "mean_send_lag_ms": 0.0,
+   "mean_served_batch": 1.0,
+   "latency_trend": 1.0912699630230183,
+   "mean_prompt_tokens": 279.5125,
+   "mean_completion_tokens": 27.0
+  }
+ },
+ "note": "closed-loop clients; decisions = 3 per request; guided JSON via response_format json_schema",
+ "ts": "2026-09-23T18:52:43Z"
+}

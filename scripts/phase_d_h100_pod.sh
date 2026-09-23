@@ -2,7 +2,7 @@
 # Runs INSIDE the H100 bench pod (pytorch/pytorch:2.14.0-cuda13.0-cudnn9-runtime); scripts/h100_window.sh on the
 # node creates the pod, copies the tarball + overlay in and invokes this per stage:
 #   kubectl exec <pod> -- bash -c 'cd /work && bash scripts/phase_d_h100_pod.sh <stage> [args]'
-# Stages: setup | parity | whole | slice <label> | sweep-only <label> | replay <label> <total-decisions> <compress>
+# Stages: setup | gxx | parity | whole | slice <label> | sweep-only <label> | replay <label> <total-decisions> <compress>
 # Results land in /work/results/<box>/ ; the node pulls them with `h100_window.sh pull <pod>`.
 set -u
 cd /work
@@ -10,6 +10,7 @@ export HOME=/tmp HF_HOME=/tmp/hf OMP_NUM_THREADS=${OMP_NUM_THREADS:-8}
 export PIP_BREAK_SYSTEM_PACKAGES=1   # the image's python is Debian-managed (PEP 668); we install into the throwaway container
 export PIP_CACHE_DIR=/work/pipcache  # copied out after the first pod's setup and back into the slice pods: no 7x downloads
 export LAYA_TRT_MAX_BATCH=${LAYA_TRT_MAX_BATCH:-256}
+[ -d /tmp/gxx/bin ] && export PATH=/tmp/gxx/bin:$PATH   # g++ unpacked from the Ubuntu .debs by the gxx stage (image has gcc, no g++; pod UID cannot apt-get)
 BOX=${BOX:-h100nvl}
 PY=python
 log() { echo "[$(date -u +%H:%M:%S)] $*"; }
@@ -23,6 +24,28 @@ sweeps() {  # one MIG slice (or one of seven): both checkpoints, eager FP16, sma
 }
 
 case "$stage" in
+gxx)
+  # torch.compile needs a C++ compiler; the image ships gcc-13 and python3.12-dev but no g++. Unpack the two
+  # matching Ubuntu 24.04 packages into /tmp and wrap g++ so it finds cc1plus and the libstdc++ headers there.
+  mkdir -p /tmp/gxx/bin /tmp/deb && cd /tmp/deb
+  $PY - <<'EOF2'
+import urllib.request
+base = "http://archive.ubuntu.com/ubuntu/pool/main/g/gcc-13/"
+for f in ["g++-13_13.3.0-6ubuntu2~24.04.1_amd64.deb", "g++-13-x86-64-linux-gnu_13.3.0-6ubuntu2~24.04.1_amd64.deb",
+          "libstdc++-13-dev_13.3.0-6ubuntu2~24.04.1_amd64.deb"]:
+    urllib.request.urlretrieve(base + f, f)
+EOF2
+  for f in *.deb; do dpkg -x "$f" /tmp/gxx; done
+  cp -rsn /usr/lib/gcc/x86_64-linux-gnu/13/* /tmp/gxx/usr/lib/gcc/x86_64-linux-gnu/13/ 2>/dev/null  # cc1, collect2, liblto_plugin, crt*.o from the installed gcc-13
+  cat > /tmp/gxx/bin/g++ <<'EOF2'
+#!/bin/bash
+export CPLUS_INCLUDE_PATH=/tmp/gxx/usr/include/c++/13:/tmp/gxx/usr/include/x86_64-linux-gnu/c++/13:/usr/lib/gcc/x86_64-linux-gnu/13/include${CPLUS_INCLUDE_PATH:+:$CPLUS_INCLUDE_PATH}
+exec /tmp/gxx/usr/bin/x86_64-linux-gnu-g++-13 -B/tmp/gxx/usr/lib/gcc/x86_64-linux-gnu/13/ -L/tmp/gxx/usr/lib/gcc/x86_64-linux-gnu/13/ "$@"
+EOF2
+  chmod +x /tmp/gxx/bin/g++; export PATH=/tmp/gxx/bin:$PATH
+  printf '#include <iostream>\nint main(){std::cout<<"CXX-OK"<<std::endl;}\n' > /tmp/t.cpp && g++ -O2 -fopenmp -o /tmp/t /tmp/t.cpp && /tmp/t
+  cd /work
+  ;;
 setup)
   log "pip install (torch already in image)"
   pip install -q -r <(grep -vE "^torch==|^laya @" requirements.txt) && pip install -q ./third_party/laya
