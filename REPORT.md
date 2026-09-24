@@ -431,9 +431,9 @@ Per-box chains that produced the committed results: `scripts/phase_a_laptop.sh`,
 
 ```
 results/
-  laptop-rtx2000ada/   env.json parity.json shootout/ server/ offline/ phase_a.log
-  zbook-rtxpro5000/    env.json parity.json shootout/ server/ offline/ replay/laya.eager-fp16.2M-day.jsonl phase_b.log
-  rtxpro6000-ws/   env.json parity.json shootout/ server/ offline/ replay/laya.eager-fp16.10M-day.jsonl baselines/ phase_c.log
+  laptop-rtx2000ada/   env.json parity.json shootout/ server/ offline/
+  zbook-rtxpro5000/    env.json parity.json shootout/ server/ offline/ replay/laya.eager-fp16.2M-day.jsonl
+  rtxpro6000-ws/       env.json parity.json shootout/ server/ offline/ replay/laya.eager-fp16.10M-day.jsonl baselines/
   h100nvl/             env.json parity.json (whole GPU) · env.mig-1g.12gb.json parity.mig-1g.12gb.json (slice)
                        shootout/ server/ (whole + *.mig-1g.12gb-solo + *.mig-1g.12gb-slice0..6) offline/ replay/ (7 slices) baselines/ WINDOW.md
   jev/                 probe.json probe-capped10rps.json probe-ratelimit-25rps.json c1.jsonl c8.jsonl ratelimit-25rps.c32.jsonl

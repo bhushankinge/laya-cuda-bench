@@ -1,6 +1,6 @@
 # H100 NVL window log — 2026-09-23 (Phoenix times)
 
-GPU 0 of a 2× H100 NVL 94 GB node (the managed Kubernetes GPU cluster, driver 580.95, CUDA 13), used from a plain Kubernetes pod with
+GPU 0 of a 2× H100 NVL 94 GB node (managed Kubernetes cluster, driver 580.95, CUDA 13), used from a plain Kubernetes pod with
 `pytorch/pytorch:2.14.0-cuda13.0-cudnn9-runtime`. Clocks pinned at 1785 MHz (the NVL's max SM clock) for the
 whole-GPU segment. Box label `h100nvl`. Driver script: `scripts/h100_window.sh`, pod stages: `scripts/phase_d_h100_pod.sh`.
 

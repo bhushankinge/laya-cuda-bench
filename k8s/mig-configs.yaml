@@ -1,5 +1,5 @@
-# Two ADDITIVE entries for ConfigMap custom-mig-config (ns gpu-operator), H100 NVL device id 0x232110DE.
-# Both partition GPU 0 ONLY; GPU 1 stays whole (the colleague's deployment). Merge these under `mig-configs:`
+# Two ADDITIVE entries for ConfigMap custom-mig-config (GPU Operator namespace), H100 NVL device id 0x232110DE.
+# Both partition GPU 0 ONLY; GPU 1 stays whole (another tenant's deployment). Merge these under `mig-configs:`
 # in the existing config.yaml (snapshot it first) -- do not replace the platform's small/medium/large/whole.
 #
 #   mixed-bd  : 1x 2g.24gb + 4x 1g.12gb   (proven 2026-07-07)  -> single-slice sweeps on both profiles

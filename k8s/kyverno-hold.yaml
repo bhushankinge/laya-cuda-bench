@@ -7,7 +7,7 @@ kind: ClusterPolicy
 metadata:
   name: laya-bench-hold-gpu
   annotations:
-    policies.kyverno.io/description: "Temporary: hold the managed inference service GPU predictors down during the laya-cuda-bench window."
+    policies.kyverno.io/description: "Temporary: hold the managed GPU predictors down during the laya-cuda-bench window."
 spec:
   validationFailureAction: Enforce
   background: false

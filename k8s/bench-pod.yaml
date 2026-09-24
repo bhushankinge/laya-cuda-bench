@@ -1,4 +1,4 @@
-# Benchmark pod for the the GPU cluster H100 node. Plain pod (no platform/type label) -> not subject to the platform's
+# Benchmark pod for the H100 node. Plain pod (no platform workload-type label) -> not subject to the platform's
 # GPU Kyverno rules, scheduled by default-scheduler. Fill in the GPU resource before applying:
 #   whole GPU : nvidia.com/gpu: "1"          (needs the Qwen predictor gone; see kyverno-hold.yaml)
 #   MIG slice : nvidia.com/mig-2g.24gb: "1"  or  nvidia.com/mig-1g.12gb: "1"   (not counted by the ns quota)

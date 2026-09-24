@@ -1,18 +1,18 @@
 #!/usr/bin/env bash
-# workstation (RTX PRO 6000 Blackwell 96 GB) exclusive-window chain. Run ON workstation AFTER `<exclusive-window-script> stop`
-# has verified 0 MiB used (and LLM_BACKEND=cluster):
-#   cd ~/laya-bench && setsid nohup scripts/phase_c_rtxpro6000.sh > results/rtxpro6000-ws/phase_c.log 2>&1 &
-# Then `<exclusive-window-script> start` once this prints "done". The Qwen3.5-35B-A3B baseline is taken separately
-# while the standby LLM is still up (harness.llm_baseline against :8000, done from the dev laptop).
+# RTX PRO 6000 Blackwell 96 GB workstation exclusive-window chain. Run ON the workstation once every other GPU tenant
+# is stopped and nvidia-smi shows < 1 GiB used:
+#   cd ~/laya-bench && setsid nohup scripts/phase_c_rtxpro6000.sh > phase_c.log 2>&1 &
+# The Qwen3.5-35B-A3B baseline is taken separately while the site's vLLM is still up (harness.llm_baseline against
+# its :8000, from another machine).
 set -u
 cd "$(dirname "$0")/.."
-PY=~/venvs/laya-bench/bin/python
+PY=${PY:-$HOME/venvs/laya-bench/bin/python}
 export LAYA_TRT_MAX_BATCH=256
 BOX=rtxpro6000-ws
 log() { echo "[$(date -u +%H:%M:%S)] $*"; }
 
 used=$(nvidia-smi --query-gpu=memory.used --format=csv,noheader,nounits | head -1)
-[ "$used" -lt 1024 ] || { echo "GPU not exclusive (${used} MiB used); run <exclusive-window-script> stop first"; exit 1; }
+[ "$used" -lt 1024 ] || { echo "GPU not exclusive (${used} MiB used); stop the other GPU tenants first"; exit 1; }
 
 log "clock pin attempt (recorded either way)"
 sudo nvidia-smi -lgc 2610,2610 2>&1 | tail -1 || true
@@ -44,7 +44,7 @@ $PY -m harness.loadgen --url http://127.0.0.1:8080/predict --model laya --curve 
 kill $SRV; wait $SRV 2>/dev/null
 
 log "Qwen3.5-4B temporary vLLM on :8010 (vLLM 0.17.1 venv)"
-HF_HOME=~/hf-cache ~/venvs/vllm/bin/vllm serve Qwen/Qwen3.5-4B --port 8010 --max-model-len 8192 --gpu-memory-utilization 0.6 \
+HF_HOME=${HF_HOME:-$HOME/hf-cache} ${VLLM:-$HOME/venvs/vllm/bin/vllm} serve Qwen/Qwen3.5-4B --port 8010 --max-model-len 8192 --gpu-memory-utilization 0.6 \
   --served-model-name Qwen/Qwen3.5-4B > results/$BOX/qwen4b-vllm.log 2>&1 &
 VL=$!
 for i in $(seq 1 120); do curl -sf http://127.0.0.1:8010/v1/models >/dev/null && break; sleep 10; done

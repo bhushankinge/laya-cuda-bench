@@ -19,3 +19,6 @@ models/
 *.engine
 *.plan
 trt_cache/
+
+# run logs (hostnames, local paths); the JSON/JSONL results are the record
+results/**/*.log

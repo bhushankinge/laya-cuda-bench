@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# H100 window driver. Runs ON the the GPU cluster GPU node as the admin user, from ~/laya-bench-prep (this script, the k8s/
+# H100 window driver. Runs ON the Kubernetes GPU node as an admin user, from ~/laya-bench-prep (this script, the k8s/
 # manifests, laya-bench.tgz and harness-overlay.tgz live there). One subcommand per row of scripts/h100_window.md;
 # every prod-touching one (hold, colleague-restart, mig, restore) is printed to and confirmed by the user first.
 #
@@ -13,16 +13,19 @@
 #   pull <pod>                     copy /work/results/h100nvl out into results/h100nvl (merge)
 #   pipcache-save <pod>            copy the pod's pip cache out so the slice pods install without downloading
 #   qwen4b-up                      temporary Qwen3.5-4B vLLM pod on the whole GPU (then port-forward 8010:8080)
-#   colleague-restart              delete the colleague's qwen3-8b predictor pod (agreed; needed for a MIG transition)
+#   colleague-restart              delete the other tenant's predictor pod on GPU 1 (agreed with them; needed for a MIG transition)
 #   mig <config>                   strategy mixed, controller to 0, label the node, wait for state=success
 #   slices7 up|solo|sweep|replay|pull|down   the 7 x 1g.12gb aggregate experiment
 #   restore                        back to whole / single / original config / controller 1 / clocks / no hold; wait for the predictor
 set -u
 export KUBECONFIG=/etc/kubernetes/admin.conf
 K="sudo --preserve-env=KUBECONFIG kubectl"
-NS=<your-namespace>
-COLLEAGUE_NS=<other-tenant-namespace>
-NODE=<gpu-node>
+# Site settings: your namespace, the other tenant's namespace (their pod restarts at MIG transitions), the node name.
+NS=${NS:-<your-namespace>}
+COLLEAGUE_NS=${COLLEAGUE_NS:-<other-tenant-namespace>}
+NODE=${NODE:-<gpu-node>}
+PLATFORM_GPU_NS=${PLATFORM_GPU_NS:-gpu-operator}              # namespace of the NVIDIA GPU Operator (custom-mig-config, mig-manager)
+PLATFORM_NODECONFIG_NS=${PLATFORM_NODECONFIG_NS:-gpu-nodeconfig}   # namespace of the platform's MIG label enforcer, if any
 PREP=$HOME/laya-bench-prep
 BOX=h100nvl
 cd "$PREP" || exit 1
@@ -38,7 +41,7 @@ wait_mig_success() {  # $1 = expected label
     sleep 10
   done
   log "MIG transition did not reach success in 15 min; mig-manager log tail:"
-  $K -n gpu-operator logs ds/nvidia-mig-manager --tail=30
+  $K -n $PLATFORM_GPU_NS logs ds/nvidia-mig-manager --tail=30
   return 1
 }
 wait_gpu0_idle() {
@@ -54,7 +57,7 @@ status() {
   echo "--- our namespace"; $K -n $NS get pods -o wide | grep -vE "^fs-|ml-pipeline"
   echo "--- colleague"; $K -n $COLLEAGUE_NS get pods | grep -E "NAME|predictor"
   echo "--- node MIG: $(mig_state)  strategy(label)=$($K get node $NODE -o jsonpath='{.metadata.labels.nvidia\.com/mig\.strategy}')  strategy(policy)=$($K get clusterpolicies.nvidia.com cluster-policy -o jsonpath='{.spec.mig.strategy}')"
-  echo "--- hold policy: $($K get clusterpolicies.kyverno.io laya-bench-hold-gpu -o name 2>/dev/null || echo none)   gpunodeconfig controller replicas: $($K -n gpu-nodeconfig get deploy gpunodeconfig-controller-manager -o jsonpath='{.spec.replicas}')"
+  echo "--- hold policy: $($K get clusterpolicies.kyverno.io laya-bench-hold-gpu -o name 2>/dev/null || echo none)   gpunodeconfig controller replicas: $($K -n $PLATFORM_NODECONFIG_NS get deploy gpunodeconfig-controller-manager -o jsonpath='{.spec.replicas}')"
   echo "--- MIG resources: $($K get node $NODE -o jsonpath='{.status.allocatable}' | tr ',' '\n' | grep -E 'nvidia.com' | tr '\n' ' ')"
   echo "--- gpus"; smi --query-gpu=index,memory.used,utilization.gpu,clocks.sm,mig.mode.current --format=csv
   smi --query-compute-apps=gpu_uuid,pid,used_memory --format=csv
@@ -64,17 +67,17 @@ snapshot() {
   d=snapshot-$(date -u +%Y%m%dT%H%M); mkdir -p "$d"
   $K get node $NODE -o yaml > $d/node.yaml
   $K get clusterpolicies.nvidia.com cluster-policy -o yaml > $d/clusterpolicy.yaml
-  $K -n gpu-operator get cm custom-mig-config -o yaml > $d/custom-mig-config.yaml
-  $K -n gpu-operator get cm custom-mig-config -o jsonpath='{.data.config\.yaml}' > $d/custom-mig-config.config.yaml
+  $K -n $PLATFORM_GPU_NS get cm custom-mig-config -o yaml > $d/custom-mig-config.yaml
+  $K -n $PLATFORM_GPU_NS get cm custom-mig-config -o jsonpath='{.data.config\.yaml}' > $d/custom-mig-config.config.yaml
   $K get gpumigconfigs -A -o yaml > $d/gpumigconfigs.yaml
   $K -n $NS get resourcequota,isvc,revisions,pods -o yaml > $d/namespace.yaml
-  $K -n gpu-nodeconfig get deploy gpunodeconfig-controller-manager -o yaml > $d/gpunodeconfig-controller.yaml
+  $K -n $PLATFORM_NODECONFIG_NS get deploy gpunodeconfig-controller-manager -o yaml > $d/gpunodeconfig-controller.yaml
   ln -sfn "$d" snapshot-latest; log "snapshot in $PREP/$d (snapshot-latest -> it)"; ls -la $d
 }
 
 cm_patch() {  # $1 = file holding the new config.yaml
   python3 -c 'import json,sys; print(json.dumps({"data":{"config.yaml":open(sys.argv[1]).read()}}))' "$1" \
-    | $K -n gpu-operator patch cm custom-mig-config --type merge -p "$(cat)"
+    | $K -n $PLATFORM_GPU_NS patch cm custom-mig-config --type merge -p "$(cat)"
 }
 migconfig_add() {
   [ -e snapshot-latest ] || { echo "run snapshot first"; exit 1; }
@@ -82,12 +85,12 @@ migconfig_add() {
   grep -q "^  mixed-bd:" $cur && { log "mixed-bd already present"; return 0; }
   { cat $cur; echo; sed -n '/^mig-configs:/,$p' k8s/mig-configs.yaml | tail -n +2; } > /tmp/custom-mig-config.new.yaml
   cm_patch /tmp/custom-mig-config.new.yaml
-  $K -n gpu-operator get cm custom-mig-config -o jsonpath='{.data.config\.yaml}' | grep -nE "^  [a-z-]+:"
+  $K -n $PLATFORM_GPU_NS get cm custom-mig-config -o jsonpath='{.data.config\.yaml}' | grep -nE "^  [a-z-]+:"
 }
 
 hold() {
   $K apply -f k8s/kyverno-hold.yaml
-  $K -n $NS delete pod -l serving.kserve.io/inferenceservice=qwen3-5-35b-a3b-fp8 --wait=false
+  $K -n $NS delete pod -l serving.kserve.io/inferenceservice=${OUR_ISVC:-qwen3-5-35b-a3b-fp8} --wait=false
   wait_gpu0_idle || exit 1
   smi -i 0 -lgc 1785,1785; smi -i 0 --query-gpu=clocks.sm,clocks.max.sm --format=csv
 }
@@ -126,15 +129,15 @@ qwen4b_up() {
 }
 
 colleague_restart() {
-  echo "colleague's predictor pod (agreed restart for the MIG transition):"; $K -n $COLLEAGUE_NS get pods -l serving.kserve.io/inferenceservice=qwen3-8b
-  $K -n $COLLEAGUE_NS delete pod -l serving.kserve.io/inferenceservice=qwen3-8b --wait=false
+  echo "colleague's predictor pod (agreed restart for the MIG transition):"; $K -n $COLLEAGUE_NS get pods -l serving.kserve.io/inferenceservice=${COLLEAGUE_ISVC:-<other-tenant-isvc>}
+  $K -n $COLLEAGUE_NS delete pod -l serving.kserve.io/inferenceservice=${COLLEAGUE_ISVC:-<other-tenant-isvc>} --wait=false
 }
 mig() {
   cfg=$1
   [ -z "$($K -n $NS get pods -l app=laya-bench -o name)" ] || { echo "bench pods still exist; delete them first"; exit 1; }
   echo "--- GPU processes (must be none for a transition)"; smi --query-compute-apps=gpu_uuid,pid,used_memory --format=csv
   $K patch clusterpolicies.nvidia.com cluster-policy --type merge -p '{"spec":{"mig":{"strategy":"mixed"}}}'
-  $K -n gpu-nodeconfig scale deploy gpunodeconfig-controller-manager --replicas=0
+  $K -n $PLATFORM_NODECONFIG_NS scale deploy gpunodeconfig-controller-manager --replicas=0
   $K label node $NODE nvidia.com/mig.config=$cfg --overwrite
   wait_mig_success "$cfg" || exit 1
   smi -L; sleep 20; status | grep "MIG resources"
@@ -164,17 +167,17 @@ restore() {
   fi
   $K patch clusterpolicies.nvidia.com cluster-policy --type merge -p '{"spec":{"mig":{"strategy":"single"}}}'
   [ -e snapshot-latest ] && cm_patch snapshot-latest/custom-mig-config.config.yaml
-  $K -n gpu-nodeconfig scale deploy gpunodeconfig-controller-manager --replicas=1
+  $K -n $PLATFORM_NODECONFIG_NS scale deploy gpunodeconfig-controller-manager --replicas=1
   smi -i 0 -rgc
   $K delete clusterpolicies.kyverno.io laya-bench-hold-gpu --ignore-not-found
   log "waiting for our predictor pod (weights re-download, ~25 min) ..."
   for i in $(seq 1 240); do
-    r=$($K -n $NS get pods -l serving.kserve.io/inferenceservice=qwen3-5-35b-a3b-fp8 -o jsonpath='{.items[*].status.containerStatuses[*].ready}' 2>/dev/null)
+    r=$($K -n $NS get pods -l serving.kserve.io/inferenceservice=${OUR_ISVC:-qwen3-5-35b-a3b-fp8} -o jsonpath='{.items[*].status.containerStatuses[*].ready}' 2>/dev/null)
     case "$r" in *false*|"") [ $((i % 12)) -eq 0 ] && log "predictor not ready yet: $r";; *) log "predictor ready: $r"; break;; esac
     sleep 10
   done
   status
-  echo "NEXT (on workstation): VIP smoke, then <app-services>/scripts/<llm-failover-script> cluster; then verify the colleague's qwen3-8b is Ready."
+  echo "NEXT: smoke the restored endpoint through the ingress, fail your application's LLM traffic back to it, verify the other tenant's pod is Ready."
 }
 
 case "${1:-status}" in
