@@ -36,3 +36,8 @@ The three argmax flips (every per-option probability is in the JSON files):
 
 This is the same picture as the 63-question parity gate in `../parity.json` and REPORT.md section 6.1 (bf16 0.004-0.016 vs
 fp16 0.0005-0.007 across four GPUs, 63/63 argmax on that smaller set); the larger upstream set is where the flips appear.
+
+Through the public API the `laya` flip survives temperature scaling (noul:2 = 1.98): `predict()` on `TEXTS[1]` with the
+whole moderation preset gives spam `noul` 0.505 under bf16 (yes) against 0.469 under fp16 and 0.468 in fp32 (no). The same
+spam question asked alone gives 0.4685 under bf16, so the bf16 answer depends on which other questions share the padded
+batch; fp16 and fp32 give the same answer either way.
