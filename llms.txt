@@ -1,0 +1,35 @@
+# laya-cuda-bench
+
+> Reproducible capacity-planning benchmark of Laya (Convai's open-weights 421M English / 322M multilingual "System 1" typed-decision models) on NVIDIA GPUs. Headline metric: sustained decisions per second under a p99 latency SLO (50 ms and 130 ms), and US dollars per million decisions. Author: Bhushan Kinge, 2026. License: Apache-2.0. All numbers are computed from raw per-request files in results/.
+
+Key results (laya 421M, natural SAM.gov length mix, open-loop Poisson load, dynamic-batching server):
+
+- H100 NVL 94 GB + TensorRT FP16: 175 decisions/s (15.1M/day) at p99 <= 130 ms; 105 decisions/s (9.0M/day) at p99 <= 50 ms; $1.86 per million decisions.
+- RTX PRO 6000 Blackwell 96 GB: 146 decisions/s (12.6M/day) at p99 <= 130 ms; $0.66 per million decisions.
+- RTX PRO 5000 Blackwell Laptop 24 GB: 42 decisions/s at p99 <= 130 ms, 15 at p99 <= 50 ms; $0.67 per million.
+- RTX 2000 Ada Laptop 8 GB: does not meet either SLO with laya (multilingual: 5 decisions/s at 130 ms).
+- A 10-million-decision day (24 h diurnal curve, each hour replayed at its real rate) on one RTX PRO 6000: 138,863 requests, 0 errors, p99 111 ms.
+- H100 as 7 x MIG 1g.12gb slices: never meets either SLO on 400-token inputs; whole GPU is 2-3.5x better; slice isolation is complete (slices agree within ~1 ms).
+- LLM baselines (Qwen3.5-35B-A3B-FP8, Qwen3.5-4B, vLLM guided JSON): ~190-200 decisions/s per card at p99 ~1 s; no configuration meets either SLO.
+- Jev hosted API (jev-1.13.0): p99 302-334 ms including WAN from Arizona; 1,500 requests/min with zero 429s; $6.8-8.2 per million decisions at list price.
+- Parity: every backend (eager FP32/FP16/BF16, torch.compile FP16, ONNX Runtime CUDA FP32/FP16, TensorRT FP16) reproduces upstream answers 63/63 on every GPU; 74/74 parity runs.
+- Static backend ranking: torch.compile max-autotune FP16 fastest (1.3-1.7x eager FP16 at batch >= 64). Serving: TensorRT wins on Hopper, eager FP16 ties TensorRT on Blackwell.
+
+Caveats: parity is fidelity to upstream, not task accuracy; cost assumes 3-year amortisation at 100 % utilisation and $0.12/kWh; one run per sweep configuration.
+
+## Docs
+
+- [README](https://github.com/bhushankinge/laya-cuda-bench/blob/main/README.md): summary, figures, method, reproduction
+- [REPORT.md](https://github.com/bhushankinge/laya-cuda-bench/blob/main/REPORT.md): full study with every table, method, dead ends, limitations, follow-ups
+- [CITATION.cff](https://github.com/bhushankinge/laya-cuda-bench/blob/main/CITATION.cff): how to cite
+
+## Data
+
+- [results/](https://github.com/bhushankinge/laya-cuda-bench/tree/main/results): raw JSONL/JSON per GPU (env.json, parity.json, shootout/, server/, offline/, replay/, baselines/)
+- [fixtures/workload/](https://github.com/bhushankinge/laya-cuda-bench/tree/main/fixtures/workload): 1,000 public SAM.gov notices, 3 typed questions, diurnal curve
+- [manifest.json](https://github.com/bhushankinge/laya-cuda-bench/blob/main/manifest.json): pinned upstream commits and weight SHA256s
+
+## Code
+
+- [harness/](https://github.com/bhushankinge/laya-cuda-bench/tree/main/harness): parity, shootout, server, load generator, sweep, offline, baselines, cost model
+- [scripts/make_figures.py](https://github.com/bhushankinge/laya-cuda-bench/blob/main/scripts/make_figures.py): all figures from results/

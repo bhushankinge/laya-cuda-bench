@@ -1,0 +1,31 @@
+cff-version: 1.2.0
+message: "If you use these numbers, the harness or the workload, please cite it as below."
+type: software
+title: "laya-cuda-bench: Capacity, Tail Latency and Cost of the Laya Decision Models on NVIDIA GPUs"
+abstract: >-
+  A reproducible capacity-planning benchmark of Laya, Convai's open-weights 421M/322M "System 1" typed-decision
+  models, on four NVIDIA GPUs (RTX 2000 Ada Laptop, RTX PRO 5000 Blackwell Laptop, RTX PRO 6000 Blackwell,
+  H100 NVL whole and as 7 MIG 1g.12gb slices) with PyTorch eager, torch.compile, ONNX Runtime CUDA and TensorRT.
+  It reports sustained decisions per second under p99 latency SLOs of 50 and 130 ms (MLPerf-Server-style
+  open-loop sweeps), a 10-million-decision diurnal day replay, cost per million decisions, and baselines against
+  a hosted decision API and LLMs (Qwen3.5-35B-A3B-FP8, Qwen3.5-4B) with guided JSON.
+authors:
+  - family-names: Kinge
+    given-names: Bhushan
+repository-code: "https://github.com/bhushankinge/laya-cuda-bench"
+license: Apache-2.0
+version: "1.0.0"
+date-released: "2026-09-24"
+keywords:
+  - benchmark
+  - GPU inference
+  - tail latency
+  - capacity planning
+  - TensorRT
+  - torch.compile
+  - ONNX Runtime
+  - MIG
+  - H100
+  - Blackwell
+  - decision models
+  - Laya

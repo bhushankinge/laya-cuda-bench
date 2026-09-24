@@ -27,6 +27,11 @@ Measurement window: 2026-09-22 to 2026-09-23. Four NVIDIA GPUs (RTX 2000 Ada 8 G
 9. **Engineering findings** that will bite anyone reproducing this: torch 2.14 "eager" silently routes some ops through Triton (`TORCH_DISABLE_NATIVE_JIT=1` restores stock kernels); ONNX Runtime's CUDA EP defaults to TF32 (FP32 rows differ by 2.6e-3 unless `use_tf32: 0`); ORT 1.30's TensorRT EP links `libnvinfer.so.10`, so `tensorrt-cu13` must be pinned to 10.x, and the TRT EP silently falls back to CUDA if the libraries are not preloaded; pure-FP16 TensorRT LayerNorm gives 0.025 probability error, the FP32-LayerNorm fallback brings it to 0.002–0.019.
 10. **Completeness.** All planned GPU experiments ran. Three gaps remain: the RTX PRO 6000 sweep predates the downward-search fix so its 50 ms SLO row is missing; the optional single 2g.24gb MIG slice was skipped for time; `torch.compile` was never swept as a server. Details in §11.
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/figures/hero-dark.png">
+  <img alt="Sustained decisions/s against p99 latency for Laya, the Jev API and LLM baselines" src="docs/figures/hero.png">
+</picture>
+
 ---
 
 ## 1. Research question and design
@@ -134,6 +139,12 @@ All 71 rows: 63/63 argmax, action-probability error 0, public answers identical,
 Observations: FP32 paths are exact to ≤ 6.5e-6 once ORT's TF32 default is disabled; FP16 sits at 0.5–10e-3; BF16 (upstream's actual default on cc ≥ 8) is the least precise dtype (up to 0.0164) yet never flips an argmax; TensorRT's error depends on the engine build (0.0057 at the batch-128 profile vs 0.0188 at batch-256 on the same card) and approaches the port's 0.02 gate. `laya-typed-decisions` shares `laya`'s architecture and size, so it was parity-tested but not timed separately. The `torch.compile` cold compile ranges from 7 s to 169 s and is excluded from all timings; TensorRT engine builds take 2–72 s and are cached.
 
 ### 6.2 Backend shootout (`results/<box>/shootout/<checkpoint>/<backend>.r<k>.jsonl`)
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/figures/shootout-dark.png">
+  <img alt="Backend throughput relative to eager FP16 at batch 64, long inputs, per GPU" src="docs/figures/shootout.png">
+</picture>
+
 
 Median decisions/s (= rows/s; 1 row = 1 state × 1 question). Short = ≤ 80 tokens, long = 400–472 tokens. Power = board watts averaged over the timed iterations.
 
@@ -249,6 +260,11 @@ Every step of every whole-GPU sweep (offered q/s → achieved q/s, p50, p99 ms, 
 *H100, multilingual eager FP16:* 50→48.5, 119/213, b15, 232 W · 70→69.5, 143/301, b24, 288 W · 98→97.0, 739/1,199, b123, 375 W SAT · 35.7→34.9, 58.8/198 · 25.5→25.4, 18.1/158 · 18.2→19.6, 16.4/107, 152 W · 13.0→13.1, 16.1/95.7, 142 W · 21.6→21.8, 16.5/125.5, 149 W.
 *H100, multilingual TensorRT FP16:* 50→43.7, 4,298/7,424, b129, 354 W SAT · 35.7→35.5, 16.7/150.6, 202 W · 25.5→25.4, 15.2/114.9, 183 W · 18.2→18.0, 13.0/66.3 · 13.0→13.8, 12.3/54.8 · 9.3→9.4, 11.8/52.0, 145 W · 30.2→30.9, 14.8/91.8, 185 W · 50 (refinement)→48.1, 41.1/3,150, b23 SAT.
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/figures/knee-dark.png">
+  <img alt="p99 latency against achieved decisions/s per GPU with the 50 and 130 ms SLOs" src="docs/figures/knee.png">
+</picture>
+
 **What the sweeps say.**
 - **The knee is sharp.** On every card the tail goes from ~100 ms to seconds within one ×1.4 step, because the batcher fills to `max_batch` once arrivals outrun the forward, and a 64–128-row batch of long notices is a 0.9–1.2 s forward. Capacity planning must sit below the knee, not at "GPU 100 %".
 - **Low-rate p99 is set by sequence length, not load.** At 1–15 q/s the served batch is ~3 (the three questions of one request) and p99 equals the forward time of one long notice: 140 ms on the RTX 2000 Ada, 45–60 ms on the RTX PRO 5000, 39–47 ms on the H100 (TensorRT: 46 ms). The 50 ms SLO is therefore mostly a *single-request latency* test on the natural mix, and only TensorRT on the H100 (105 dec/s) and the two laptops at ~5 q/s pass it.
@@ -269,6 +285,11 @@ Offline is 1.9–2.6× the 130 ms-SLO capacity on the big cards: the price of a 
 
 ### 6.5 Large-org day replays (`results/<box>/replay/*.jsonl`)
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/figures/day-replay-dark.png">
+  <img alt="Per-hour offered load and p99 of the 10M-decision day on the RTX PRO 6000" src="docs/figures/day-replay.png">
+</picture>
+
 **RTX PRO 5000, `laya` eager FP16, 2M decisions/day, 24× compressed (1 h), max-batch 16:** 27,870 requests, **0 errors**, p50 24 ms, p90 40 ms, **p99 83 ms**, max 702 ms, 23.2 decisions/s average, 40 at the 10:00 peak. Per-hour p99 stayed between 55 and 102 ms (peak hour 10: 102 ms; hours 8–17 all ≤ 95 ms).
 
 **RTX PRO 6000, `laya` eager FP16, 10M decisions/day, 24× compressed (1 h), max-batch 128:** 138,863 requests, **0 errors**, p50 47 ms, p90 70 ms, **p99 111 ms**, max 251 ms, mean served batch 7.3, 115.7 decisions/s average and 187 at the peak hour. Per-hour p99 (ms): 66, 65, 64, 65, 65, 65, 72, 86, 93, 125, **132**, 126, 111, 126, **143**, 109, 116, 90, 86, 80, 78, 70, 68, 66. Two of the 24 hours (10:00 at 187 dec/s and 14:00 at 185 dec/s) exceed the 130 ms SLO, consistent with the sweep's knee between 146 and 200 decisions/s. One card carries the day; a 130 ms SLO in the two busiest hours needs ~25 % headroom or the TensorRT/compile path.
@@ -281,6 +302,11 @@ Offline is 1.9–2.6× the 130 ms-SLO capacity on the big cards: the price of a 
 - **Parity on a slice:** `laya` eager FP16 63/63, p_err 6.7e-3 (`parity.mig-1g.12gb.json`).
 - **Single slice, alone (`*.mig-1g.12gb-solo.sweep.json`):** `laya`: 2.6 q/s → p50 47 / p99 126 ms; 3.6 → 48 / 191; 5.1 → 48 / 278; 7.1 → 49 / 236; 10 → 92 / 360; 14 → 113 / 538 (SAT). Multilingual: 2.6 → 30 / 131; 3.6 → 32 / 210; 5.1 → 33 / 179; 7.1 → 39 / 218; 10 → 89 / 390; 14 → 89 / 831 (SAT). Neither SLO is met at any offered rate. At 2.6 q/s `laya`'s p99 (126 ms) is under 130 ms but the achieved rate (2.3 q/s) fell below the 90 % gate — Poisson noise with 156 requests per step — so a generous reading is ≈ 2.5 q/s ≈ 7.5 decisions/s per slice at p99 ≈ 130 ms, ≈ 50 decisions/s for all seven slices, versus 93 (eager) / 175 (TensorRT) for the whole card. The p50 at low load (47 ms `laya`, 30 ms multilingual) is the forward time of a typical request on 1/7 of the card; the p99 (126–280 ms at 2.6–5 q/s) is the forward of the longest notices.
 - **Seven slices concurrently (`*-slice0..6`):** every step of every slice matches the solo run to within 1 ms of p50 and a few ms of p99 (`laya` at 2.6 q/s: p99 126.1–127.2 ms across the seven; multilingual: 130.4–131.5). MIG isolation is complete for this workload; there is no cross-slice interference to account for.
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/figures/mig-dark.png">
+  <img alt="Whole H100 versus seven concurrent MIG 1g.12gb slices, p99 against card decisions/s" src="docs/figures/mig.png">
+</picture>
+
 - **Verdict.** For 400-token documents, one whole GPU with TensorRT or `torch.compile` beats 7 slices of the same GPU under any p99 SLO, by roughly 2–3.5× in sustained decisions/s, and the sliced card's day-replay p99 (285 ms) is 2.6× the whole workstation card's (111 ms). MIG 1g.12gb slices become attractive when inputs are short (a short forward is ~10 ms on a slice) or when the SLO is loose and the goal is bin-packing many low-rate tenants at 11.5 GB each. The 2g.24gb profile (2/7 of the card) was not measured.
 - Power per slice is not observable (NVML returns 0 W on a MIG device); the card-level reading is the only energy figure.
 
@@ -332,6 +358,11 @@ Assumptions (all overridable in `harness/report.py`): electricity $0.12/kWh; car
 | Qwen3.5-35B-A3B-FP8 or Qwen3.5-4B, RTX PRO 6000, p99 ≈ 1.1–1.3 s | 188–202 | 16.3–17.5 | n/a | n/a | 0.44–0.48 | **≥ 0.45** (+ energy at ~400–600 W: ~$0.07–0.10) |
 | Qwen3.5-35B-A3B-FP8 or Qwen3.5-4B, H100 NVL, p99 ≈ 1 s | 200 | 17.3 | n/a | n/a | 1.58 | **≥ 1.6** |
 | **Jev API**, p99 ≈ 0.3 s incl. WAN | 75 sustained per key (25 rps) | 6.5 per key | — | — | — | **6.8–8.2** |
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/figures/cost-dark.png">
+  <img alt="Cost per million decisions for Laya, LLM baselines and the Jev API" src="docs/figures/cost.png">
+</picture>
 
 Reading: energy is 3–7 % of the self-hosted cost; the card term dominates, so utilisation drives everything. At full utilisation a Blackwell workstation card serves decisions under a 130 ms SLO for ~$0.66/M, about 11× cheaper than Jev's list price and at a p99 2.5–4× lower — but that comparison assumes 12.6M decisions/day of demand to soak the card; below ~1M decisions/day (≈ $7–8/day on Jev) the API wins on price and on zero operations. The H100 is 2.8× the workstation card's cost per decision at the 130 ms SLO because it costs 3.5× as much and is only 1.2× faster on this model. LLMs are cost-competitive per decision at the card level (their throughput is similar) but fail both SLOs by 8–20×.
 
@@ -409,7 +440,6 @@ Reading: energy is 3–7 % of the self-hosted cost; the card term dominates, so 
 6. **Jev WAN baseline**: TCP connect time from the aiohttp trace to separate network from service latency.
 7. **Server correctness check**: assert a batch of N requests equals upstream `Agent.predict` one by one (planned, not automated).
 8. **Cost constants**: confirm card prices and add a utilisation parameter to the notebook.
-9. `notebooks/report.ipynb` executed on a clean checkout from `results/` only; README results section.
 
 ## 12. Reproduction and file map
 
