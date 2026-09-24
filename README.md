@@ -66,7 +66,7 @@ python -m harness.offline --box mybox --model laya --backend eager-fp16
 
 ## Results
 
-See `notebooks/report.ipynb` and the blog post (link added at publication). Per-box raw data lives under
+The full study report with every table is [REPORT.md](REPORT.md). See also `notebooks/report.ipynb` and the blog post (link added at publication). Per-box raw data lives under
 `results/<box>/` with an `env.json` describing driver, CUDA, library versions, clocks and MIG state.
 
 ## Limitations
